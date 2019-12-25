@@ -8,8 +8,8 @@
 // Input:  nums1 = [1, 2], nums2 = [3, 4]
 // Output: (2 + 3)/2 = 2.5
 
-// V1- merges arrays in O(n) time, then calculates median
-// Time: O(n)
+// V1- merges arrays in O(n + m) time, then calculates median
+// Time: O(n + m)
 // Space: ??
 function findMedianSortedArrays(nums1, nums2) {
 	let merged = mergeTwoArrays(nums1, nums2);
@@ -27,8 +27,8 @@ console.log(findMedianSortedArrays([1,3], [2]));    //=> 2.0
 
 
 
-// Time: O(n)
-// Space: O(n)
+// Time: O(n + m)
+// Space: O(n + m) ?
 // [1,3,4], [2,5]   
 /*
 function mergeTwoArrays(arr1, arr2) {
@@ -102,7 +102,7 @@ function mergeTwoArrays(arr1, arr2) {
 
 
 // V2- SIMPLER 
-// Time: O(n)
+// Time: O(n + m)
 // Space: ??
 // [2,5], [1,3,4] 		=>  [1, 2, 3, 4, 5]
 function mergeTwoArrays(arr1, arr2) {
