@@ -84,7 +84,7 @@ function merge(arr1, arr2) {
 
 
 /*
-// V2- assumes we modify input array 1
+// V2- assumes we modify input array1 THIS SOLUTION DOESN"T WORK FOR ALL CASES
 // DON'T RETURN ANYTHING
 // Time: O(m + n), where m and n = lengths off arr1, arr2 respectively
 // Space: O(1), because we mutate input array instead of duplicating/making new merged array
@@ -135,28 +135,88 @@ function merge(nums1, nums2) {
 // V3- MOST UPVOTED SOLUTION
 // Time: O(n + m)
 // Space: O(1)
+// Ex. [1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3		
+/*
 function merge(nums1, m, nums2, n) {
 	let len = nums1.length - 1
+	// len = 6 - 1 = 5
 	m--;
 	n--;
+	// m = 3 - 1 = 2
+	// n = 3 - 1 = 2
 
 	while (n >= 0) {
+		// n = 2
+		// n = 1
+		// n = 0
+		// n = 0
 		if (nums1[m] > nums2[n]) {
-			nums1[len] = nums1[m], m--
+			// n = 2: [1, 2, 3, 0, 0, 0][2] > [2, 5, 6][2]				3 > 6		false
+			// n = 1: [1, 2, 3, 0, 0, 0][2] > [2, 5, 6][1]				3 > 5		false
+			// n = 0: [1, 2, 3, 0, 0, 0][2] > [2, 5, 6][0]				3 > 2		true
+			// n = 0: [1, 2, 3, 0, 0, 0][1] > [2, 5, 6][0]				2 > 2		false
+			nums1[len] = nums1[m], m--;
+			// n = 0: [1, 2, 3, 0, 0, 0][3] = [1, 2, 3, 0, 0, 0][2] = [1, 2, 3, 3, 5, 6]
+			// n = 0: m = 1
 		} else {
-			nums1[len] = nums2[n], n--
+			nums1[len] = nums2[n], n--;
+			// n = 2: [1, 2, 3, 0, 0, 0][5] = [2, 5, 6][2] = 6		[1, 2, 3, 0, 0, 6]
+			// n = 2: n = 1
+			// n = 1: [1, 2, 3, 0, 0, 0][4] = [2, 5, 6][1] = 5		[1, 2, 3, 0, 5, 6]
+			// n = 1: n = 0
+			// n = 0: [1, 2, 3, 0, 0, 0][2] = [2, 5, 6][0] = 2		[1, 2, 2, 3, 5, 6]
 		}
-		len--
-
+		len--;
+		// n = 1: len = 4
+		// n = 0: len = 3
+		// n = 0: len = 2
 	}
 	return nums1
 }
+*/
+
+
+/*
+// V4- My Solution (my version of v3/most upvoted)
+// Time: O(n + m)
+// Space: O(1)
+// Ex. [1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3			[1, 2, 2, 3, 5, 6]
+function merge(nums1, m, nums2, n) {
+	// create two pointers to track nums in both arrays
+	// p1 is last num in nums1, p2 is last ele in nums2
+	let p1 = m - 1;
+	let p2 = n - 1;
+	// if (m == 0) return nums1[0] = nums2[0];
+
+	// loop from end of nums1 to begin
+	for (let i = nums1.length - 1; p2 >= 0; i--) {
+		let num1 = nums1[p1];
+		let num2 = nums2[p2];
+
+		// see which num is bigger (since we're looping from end)
+		if (num1 > num2) {
+			// set bigger num to current position i
+			nums1[i] = num1;
+
+			// move pointer down of bigger num
+			p1--;
+		} else {			
+			// set bigger num to current position i
+			nums1[i] = num2;
+
+			// move pointer down of bigger num
+			p2--;
+		}
+	}
+}
+
+
 
 
 let list1 = [1, 2, 3, 0, 0, 0,];
 let list2 = [2, 5, 6];
 merge(list1, 3, list2, 3);
-console.log(list1);					// [ 0, 1, 2, 2, 5, 6 ]
+console.log(list1);					// [ 1, 2, 2, 3, 5, 6 ]
 
 list1 = [0, 1, 2, 0, 0 ];
 list2 = [2, 5];
@@ -186,4 +246,65 @@ console.log(list1);						// [ 1, 2 ]
 list1 = [-1, 0, 1, 1, 0, 0, 0, 0, 0];
 list2 = [-1, 0, 2, 2, 3];
 merge(list1, 4, list2, 5);
-console.log(list1);								// [-1, -1, 0, 0, 1, 1, 2, 2, 3]  FAIL
+console.log(list1);								// [-1, -1, 0, 0, 1, 1, 2, 2, 3]  
+*/
+
+
+
+// DIFFERENT THAN LEETCODE (same solution as above)
+// Only given two arrays. nums1 arr doesn't have trailing 0's
+// [1,2,3], [2,5]				=>  [1,2,2,3,5]
+function merge(nums1, nums2) {
+	let p1 = nums1.length - 1;
+	let p2 = nums2.length - 1;
+	let totalLength = nums1.length + nums2.length;
+
+	for (let i = totalLength - 1; p2 >= 0; i--) {
+		let num1 = nums1[p1];
+		let num2 = nums2[p2];
+		if (num1 > num2) {
+			nums1[i] = num1;
+			p1--;
+		} else {
+			nums1[i] = num2;
+			p2--;
+		}
+	}
+	return nums1;
+}
+
+
+let list1 = [1, 2, 3];
+let list2 = [2, 5, 6];
+merge(list1, list2);
+console.log(list1);					// [ 1, 2, 2, 3, 5, 6 ]
+
+list1 = [1, 2, 3];
+list2 = [2, 5];
+merge(list1, list2);
+console.log(list1);					// [1,2,2,3,5]
+
+list1 = [2, 5];
+list2 = [1, 2, 3];
+merge(list1, list2);
+console.log(list1);					// [1,2,2,3,5]
+
+list1 = [1];
+list2 = [];
+merge(list1, list2);
+console.log(list1);					// [1]
+
+list1 = [];
+list2 = [1];
+merge(list1, list2);
+console.log(list1);					// [ 1 ]
+
+list1 = [2];
+list2 = [1];
+merge(list1, list2);
+console.log(list1);						// [ 1, 2 ]
+
+list1 = [-1, 0, 1, 1];
+list2 = [-1, 0, 2, 2, 3];
+merge(list1, list2);
+console.log(list1);						// [-1, -1, 0, 0, 1, 1, 2, 2, 3]  
