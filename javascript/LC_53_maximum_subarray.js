@@ -10,8 +10,7 @@
 /*
 * @param {number[]} nums
 * @return {number}
-*/
-// Time to Complete: 6:54PM - 
+*/ 
 
 // V0- Doesn't pass all cases
 /*
