@@ -16,7 +16,10 @@
 // Explanation: Because the path 1→3→1→1→1 minimizes the sum.
 
 
-// AA SOLUTION- Dynamic Programming Tabulation
+// SOLUTION1- AA Solution using Dynamic Programming Tabulation
+// Time Complexity: O(h * w), where h = height length of grid, w = width of grid
+// Space Complexity: O(h * w) bec. another matrix of same dimensions is created
+// Solution Description:
 // Build a table (2d array) w/ same length of input grid, where each innermost
 // value represents that minpath sum to that position. Loop through each
 // value in the table and assign it with the min path sum using the previous
@@ -63,8 +66,6 @@ function minPathSum(grid) {
         // 8) reassign value adjacent right of current position
         table[i][j + 1] = Math.min(table[i][j] + grid[i][j + 1], table[i][j + 1]);
       }
-      console.log(table);
-      console.log('       ')
     }
   }
 
