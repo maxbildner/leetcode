@@ -50,26 +50,25 @@
 // SPACE: O(1)  
 // Summary: track two variables: the lowest price (minPrice) and the max profit
 // Ex. [7, 1, 5, 3, 6, 4]   => 5    bec 6 - 1
+
 function maxProfit(prices) {
-  // 1) set minPrice to extremely large number so on 1st loop, we can reassign minPrice to propper value
+  // 1) initialize vars to track minPrice and max profit
+  // initialize them to extreme points so we can reassign propper values later
   let minPrice = Infinity;
   let profit = 0;
 
-  // 2) loop through all prices
+  // 2) loop through prices array
   for (let t = 0; t < prices.length; t++) {
-    let price = prices[t];
+    let currentPrice = prices[t];
+    let currentProfit = currentPrice - minPrice;
 
-    // 3) track lowest price 
-    // if (current price < minPrice), update minPrice
-    // this will always be true for first loop
-    if (price < minPrice) {
-      minPrice = price;
-
-      // 4) track maxprofit
-      // if (current price - minPrice > profit), update profit
-      // price - minPrice = represents current profit
-    } else if (price - minPrice > profit) {
-      profit = price - minPrice;
+    // 3) check if minPrice can be updated
+    if (currentPrice < minPrice) {
+      minPrice = currentPrice;
+      
+      // 4) else check if max profit can be updated
+    } else if (currentProfit > profit) {
+      profit = currentProfit;
     }
   }
 
