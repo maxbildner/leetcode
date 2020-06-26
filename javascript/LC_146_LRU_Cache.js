@@ -164,7 +164,7 @@ var LRUCache = function (capacity) {                                            
 };
 
 
-// Helper Method- insert a new node at the head of the list
+// HELPER Method- insert a new node at the head of the list
 LRUCache.prototype._insertHead = function(node) {
   let oldHead = this.head;                                                      // capture old head node in temp var
   this.head = node;                                                             // update LRUCache (doubly linked list) head property to new node
@@ -176,29 +176,49 @@ LRUCache.prototype._insertHead = function(node) {
     node.next = oldHead;                                                        // update new head node's next to old head
     oldHead.prev = node;                                                        // update old head node's prev to new node
   }
+
+  this.count++;                                                                 // update count
 }
 
 
-// Helper Method- remove node from tail of the list
-LRUCache.prototype._pruneTail = function() {
+// HELPER Method- removes a NON-TAIL, or NON-HEAD node from a list
+// Returns node removed
+LRUCache.prototype._removeNode = function(node) {
+  let prev = node.prev;                                                         // grab previous node
+  let next = node.next;                                                         // grab next node
+  prev.next = next;                                                             // update previous node's next to point to next node
+  next.prev = prev;                                                             // update next node's prev to point to previous node
 
+  // node.prev.next = node.next;                                                // below 2 also work instead of above
+  // node.next = node.prev;
+
+  this.count--;                                                                 // update lists count property
+  return node;
 }
 
 
-// Helper Method- Move Node to head of list
+// HELPER Method- remove node from tail of the list
+// Returns tail node removed
+LRUCache.prototype._removeTail = function() {
+  let newTail = this.tail.prev;                                                 // grab previous node (will become newTail)
+  let oldTail = this.tail;
+  newTail.next = null;                                                          // update previous node's (newTail's) next to point to null
+  this.tail = newTail;                                                          // update LRUCache's (List's) tail to newTail
+  this.count--;                                                                 // update lists count
+  return oldTail;
+}
+
+
+// HELPER Method- Move Node to head of list
 LRUCache.prototype._moveToHead = function(node){  
-  let oldHead = this.head;                                                      // capture oldHead node in temp var
-  let oldTail = this.tail;                                                      // capture oldTail node in temp var
-  
-  if (node === this.tail) {                                                     // if node is tail
-   
-
-  } else if (node === this.head) {                                              // if node is head
-
-
-  } else {                                                                      // if node is NOT head and not tail
-
+  if (node === this.head) {                                                     // exit if node is head (no need to do anyting, list already ordered)
+    return;   
+  } else if (node === this.tail) {                                              // if node is tail, removeTail
+    this._removeTail();
+  } else {                                                                      // if node is NOT head and NOT tail, removeNode 
+    this._removeNode(node);                                                     
   }
+  this._insertHead(node);                                                       // insert removed node to head of list
 }
 
 
@@ -219,10 +239,12 @@ LRUCache.prototype.put = function (key, value) {
   if (this.hashTable[key] !== undefined) {                                      // if key/val DOES exist in LRUCache hashTable
     
   } else {                                                                      // key/val does NOT exist in LRUCache
-    if (this.count >= this.capacity) this._pruneTail();                         // if LRUCache is full, prune tail
+    if (this.count >= this.capacity) {                                          // if LRUCache is full
+      let oldTail = this._removeTail();                                         // removeTail, store in temp var
+      delete this.hashTable[oldTail.key];                                       // delete key/value from hashTable
+    } 
     this.hashTable[key] = { key, value, prev: null, next: null };               // create new "node". I.E. set val at key in Hashtable to be an object with 4 keys (k,v,prev,next). This object is analagous to LRUCacheItem in AA DSA
     this._insertHead(this.hashTable[key]);                                      // insert new node at head of list
-    this.count++;                                                               // update count
   }
 };
 
@@ -243,6 +265,7 @@ LRUCache.prototype.put = function (key, value) {
 
 var fancyLRUCache = new LRUCache(2);
 // 1)
+console.log('PUT: 1');
 fancyLRUCache.put(1, 1);
 // console.log(fancyLRUCache);
 console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '1'
@@ -251,47 +274,119 @@ console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.t
 console.log(' ');
 
 // 2) 
+console.log('PUT: 2');
 fancyLRUCache.put(2, 2);
 console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '2 -> 1'
 console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
 //=>                                                                                              Head: 2  Tail: 1   Length: 2
 console.log(' ');
 
+// // 2.1
+// console.log('PUT: 3');
+// fancyLRUCache.put(3, 3);
+// console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '3 -> 2 -> 1'
+// console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+// console.log(' ');                                                                           
+// //=>                                                                                              Head: 3  Tail: 1   Length: 3
+
+// // 2.2
+// console.log('removeNode: 2');
+// console.log(fancyLRUCache._removeNode(fancyLRUCache.head.next).value);                       //=>  2
+// console.log(stringifyListOrder(fancyLRUCache.head));                                         //=> '3 -> 1'
+// console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+// console.log(' ');
+// //=>                                                                                              Head: 3  Tail: 1   Length: 2
+
+// // 2.3
+// console.log('removeTail: 1');
+// console.log(fancyLRUCache._removeTail().value);                                              //=>  1
+// console.log(stringifyListOrder(fancyLRUCache.head));                                         //=> '3'
+// console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+// console.log(' ');
+// //=>                                                                                              Head: 3  Tail: 3   Length: 1
+
 // 3)
+console.log('GET: 1');
 console.log(fancyLRUCache.get(1));                                                          //=> 1
 console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '1 -> 2'
 console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+console.log(' ');
 //=>                                                                                              Head: 1  Tail: 2   Length: 2
+
+// // 3.1)
+// console.log('GET: 1');
+// console.log(fancyLRUCache.get(1));                                                          //=> 1
+// console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '1 -> 2'
+// console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+// console.log(' ');
+// //=>                                                                                              Head: 1  Tail: 2   Length: 2
+
+// // 3.2)
+// console.log('PUT: 3');
+// fancyLRUCache.put(3, 3);                                                                    // no pruning bec limit = 3 in this ex.
+// console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '3 -> 1 -> 2'
+// console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+// console.log(' ');
+// //=>                                                                                              Head: 3  Tail: 2   Length: 3
+
+// // 3.2)
+// console.log('GET: 1');
+// console.log(fancyLRUCache.get(1));                                                          //=> 1
+// console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '1 -> 3 -> 2'
+// console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+// console.log(' ');
+// //=>                                                                                              Head: 1  Tail: 2   Length: 3
+
+// 4)
+console.log('PUT: 3');
+fancyLRUCache.put(3, 3);                                                                    //   evicts key 2
+console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '3 -> 1'
+console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+//=>                                                                                              Head: 3  Tail: 1   Length: 2
 console.log(' ');
 
-// // 4)
-// fancyLRUCache.put(3, 3);                                                                    //   evicts key 2
-// console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '3 -> 1'
-// console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
-// //=>                                                                                              Head: 3  Tail: 1   Length: 2
-// console.log(' ');
-
 // 5)
-// cache.get(2);                                        //=> -1 (not found)
-//    Order = 3 -> 1        Head = 3,  Tail = 1
-//
+console.log('GET: 2');
+console.log(fancyLRUCache.get(2));                                                          //=>  -1
+console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '3 -> 1'
+console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+//=>                                                                                              Head: 3  Tail: 1   Length: 2
+console.log(' ');
+
 // 6)
-// cache.put(4, 4);                                     //   evicts key 1
-//    Order = 4 -> 3        Head = 4,  Tail = 3
-//
+console.log('PUT: 4');
+fancyLRUCache.put(4, 4);                                                                    //    evicts key 1
+console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '4 -> 3'
+console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+//=>                                                                                              Head: 4  Tail: 3   Length: 2
+console.log(' ');
+
 // 7)
-// cache.get(1);                                        //=> -1 (not found)
-//    Order = 4 -> 3        Head = 4,  Tail = 3
-//
+console.log('GET: 1');
+console.log(fancyLRUCache.get(1));                                                          //=> -1
+console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '4 -> 3'
+console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+//=>                                                                                              Head: 4  Tail: 3   Length: 2
+console.log(' ');
+
 // 8)
-// cache.get(3);                                        //=> 3
-//    Order = 3 -> 4        Head = 3,  Tail = 4
-//   
+console.log('GET: 3');
+console.log(fancyLRUCache.get(3));                                                          //=> 3
+console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '3 -> 4'
+console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+//=>                                                                                              Head: 3  Tail: 4   Length: 2
+console.log(' ');
+
 // 9)
-// cache.get(4);                                        //=> 4
-//    Order = 4 -> 3        Head = 4,  Tail = 3
+console.log('GET: 4');
+console.log(fancyLRUCache.get(4));                                                          //=> 4
+console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '4 -> 3'
+console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+//=>                                                                                              Head: 4  Tail: 3   Length: 2
+console.log(' ');
 
 
+// Helper function- returns nice fancy string of node values ex. '3 -> 2 -> 1'
 // headNode == { key, value, prev:[Node], next:[Node] };
 function stringifyListOrder(headNode) {
   let currentNode = headNode;
