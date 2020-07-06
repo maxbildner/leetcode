@@ -7,7 +7,7 @@
 // ---------- 
 // Example 1:
 // ----------
-// Sshould return node D as the node of intersection.
+// Should return node D as the node of intersection.
 // 
 //  A → B → C
 //           ↘
