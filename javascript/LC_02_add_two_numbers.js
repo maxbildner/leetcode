@@ -25,7 +25,7 @@ class ListNode {
 
 
 // *****************************************************************************
-// SOLUTION V1- 
+// SOLUTION V1- BASIC MATH (like how you would solve w/ pen/paper with "carry")
 // TIME COMPLEXITY:   O( Max(m, n) ),   m = List 1 length,   n = list 2 length 
 // SPACE COMPLEXITY:  O( Max(m, n) )
 // (ListNode 1, ListNode 2)       =>  ListNode
@@ -37,7 +37,7 @@ function addTwoNumbers(l1, l2) {
   let carry = 0;
 
   // loop through both lists 1 node at a time
-  while (l1 || l2 || sum > 0) {                                                 // 4) keep looping while l1 or l2 exist (i.e. not null) or sum > 0
+  while (l1 || l2 || sum > 0) {                                                 // 4) keep looping while l1 or l2 exist (i.e. not null) or sum > 0. We need sum > 0 incase we're only given 2 single digit numbers (l1, l2) = (5, 5)
     if (l1) {                                                                   // 5) if l1 exists (not null), update sum and l1 pointer
       sum = sum + l1.val;
       l1 = l1.next;
@@ -70,15 +70,21 @@ let l1Node2 = new ListNode(4);
 let l1Node3 = new ListNode(3);
 l1Node1.next = l1Node2;
 l1Node2.next = l1Node3;
-
 let l2Node1 = new ListNode(5);
 let l2Node2 = new ListNode(6);
 let l2Node3 = new ListNode(4);
 l2Node1.next = l2Node2;
 l2Node2.next = l2Node3;
-
 let sum = addTwoNumbers(l1Node1, l2Node1);
 console.log(stringify(sum));                  //=> '7 -> 0 -> 8'
+
+
+// EXAMPLE 2:   
+// (5) + (5)                                  //=> 0 -> 1
+l1Node1 = new ListNode(5);
+l2Node1 = new ListNode(5);
+sum = addTwoNumbers(l1Node1, l2Node1);
+console.log(stringify(sum));                  //=> '0 -> 1'
 
 
 // Helper Function for testing:
