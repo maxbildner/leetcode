@@ -36,8 +36,8 @@
 // *****************************************************************************
 // SOLUTION V1- 2 Stacks, with private helper method
 //    (1 stack to track main, another for history of mins)
-// TIME COMPLEXITY:   O(1),  all methods 
-// SPACE COMPLEXITY:  O(N)   N = number of items in stack
+// TIME COMPLEXITY:   O(1),  all methods, N = number of items in stack
+// SPACE COMPLEXITY:  O(N)   2N ->  O(N)
 
 var MinStack = function () {
   this.stack = [];
@@ -125,10 +125,12 @@ MinStack.prototype.getMin = function() {
 // *****************************************************************************
 // SOLUTION V2- 2 Stacks, NO HELPER
 //    (1 stack to track main, another for history of mins)
-// TIME COMPLEXITY:   O(1),  all methods 
-// SPACE COMPLEXITY:  O(N)   N = number of items in stack
+// TIME COMPLEXITY:   O(1),  all methods, N = number of items in stack
+// SPACE COMPLEXITY:  O(N)   2N ->  O(N)
 
-
+// MinStack Data Structure has two properties (both are stacks):
+// - main stack (array): 
+// - mins stack (array): another stack that tracks history of mins
 var MinStack = function () {
   this.stack = [];
   this.mins = [];
@@ -136,52 +138,58 @@ var MinStack = function () {
 };
 
 
+// return undefined
 MinStack.prototype.push = function (num) {
-  this.stack.push(num);
+  this.stack.push(num);                                                         // push number to stack
 
-  let currentMin = this.mins[this.mins.length - 1];
-
-  if (this.mins.length === 0 || num <= currentMin) {
+  let currentMin = this.mins[this.mins.length - 1];                             // current min is last num in mins array (top)
+  
+  // update/check if mins stack needs to be updated
+  if (this.mins.length === 0 || num <= currentMin) {                            // if num <= currentMin, update currentMin. "<=" because we want to push the number or else ex 1 below wont work
     this.mins.push(num);
   }
 };
 
 
+// return undefined
 MinStack.prototype.pop = function () {
-  let removed = this.stack.pop();
+  let removed = this.stack.pop();                                               // remove last number from stack, store in var
 
-  let currentMin = this.mins[this.mins.length - 1];
+  let currentMin = this.mins[this.mins.length - 1];                             // grab currentMin (last num in mins array)
 
-  if (currentMin === removed) {
+  if (currentMin === removed) {                                                 // if currentMin == removed, delete last num in mins stack
     this.mins.pop();
   }
 };
 
 
+// return Number
 MinStack.prototype.top = function () {
-  return this.stack[this.stack.length - 1];
+  return this.stack[this.stack.length - 1];                                     // top of stack is last num in main stack array
 };
 
 
+// return Number
 MinStack.prototype.getMin = function () {
-  return this.mins[this.mins.length - 1];
+  return this.mins[this.mins.length - 1];                                       // currentMin is last num in mins stack array
 };
+
 
 
 // EXAMPLE 1:
-// let minStack = new MinStack();
+// let minStack = new MinStack();        // { stack: [], mins: [] }
 // minStack.push(0);                
-// console.log(minStack);              //=> { stack: [ 0 ], mins: [ 0 ] }
-// console.log(minStack.getMin());     //=> 0
+// console.log(minStack);                //=> { stack: [ 0 ], mins: [ 0 ] }
+// console.log(minStack.getMin());       //=> 0
 
 // minStack.push(1);                 
-// console.log(minStack);              //=> { stack: [ 0, 1 ], mins: [ 0 ] }
-// console.log(minStack.getMin());     //=> 0
+// console.log(minStack);                //=> { stack: [ 0, 1 ], mins: [ 0 ] }
+// console.log(minStack.getMin());       //=> 0
 
 // minStack.push(0);                 
-// console.log(minStack);              //=> { stack: [ 0, 1, 0 ], mins: [ 0 ] }
-// console.log(minStack.getMin());     //=> 0
+// console.log(minStack);                //=> { stack: [ 0, 1, 0 ], mins: [ 0, 0 ] }
+// console.log(minStack.getMin());       //=> 0
 
 // minStack.pop();                   
-// console.log(minStack);              //=> { stack: [ 0, 1 ], mins: [ 0 ] }
-// console.log(minStack.getMin());     //=> 0
+// console.log(minStack);                //=> { stack: [ 0, 1 ], mins: [ 0 ] }
+// console.log(minStack.getMin());       //=> 0
