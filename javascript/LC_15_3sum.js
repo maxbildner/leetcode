@@ -26,6 +26,7 @@
 //      O(N log(N) Sorting array + N^2    =>   N^2
 // SPACE COMPLEXITY: O(N or logN) depending on sorting algo used (here we ignore memory required for output)
 // MUTATES INPUT ARRAY
+// https://leetcode.com/problems/3sum/discuss/281302/JavaScript-with-lots-of-explanatory-comments!
 
 // [ -1, 0, 1, 2, -1, -4 ]      =>   [ [-1, 0, 1], [-1, -1, 2] ]
 var threeSum = function (nums) {
