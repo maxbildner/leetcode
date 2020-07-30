@@ -71,3 +71,31 @@ var buildTree = function (preorder, inorder) {
 // 			right: TreeNode { val: 7, left: null, right: null }
 // 		}
 // }
+
+
+
+
+// TIME: 25min
+// *****************************************************************************
+// TIME COMPLEXITY:  O(N^2), ?  N = num nodes in tree 
+// SPACE COMPLEXITY: O(N) 
+
+// EX: ([3, 9, 20, 15, 7], [9, 3, 15, 20, 7])			=>   [TreeNode]
+var buildTree = function (preorder, inorder) {
+
+}
+
+// TEST:
+// let preOrder = [3, 9, 20, 15, 7];
+// let inOrder  = [9, 3, 15, 20, 7];
+// console.log(buildTree(preOrder, inOrder));			//=> 
+// TreeNode {
+// 	val: 3,
+// 	left: TreeNode { val: 9, left: null, right: null },
+// 	right:
+// 		TreeNode {
+// 			val: 20,
+// 			left: TreeNode { val: 15, left: null, right: null },
+// 			right: TreeNode { val: 7, left: null, right: null }
+// 		}
+// }
