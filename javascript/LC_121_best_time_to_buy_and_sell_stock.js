@@ -74,6 +74,26 @@ function maxProfit(prices) {
 
   return profit;
 }
+// console.log(maxProfit([7, 1, 5, 3, 6, 4]));     //=> 5
+// console.log(maxProfit([7, 6, 4, 3, 1]));        //=> 0
+// console.log(maxProfit([7, 1]));                 //=> 0
+// console.log(maxProfit([7]));                    //=> 0
+// console.log(maxProfit([]));                     //=> 0
+// console.log(maxProfit([1, 2]));                 //=> 1
+
+
+
+
+// *****************************************************************************
+// PRACTICE
+// TIME: O(N), where n = prices length   
+// SPACE: O(1)  
+// Summary: track two variables: the lowest price (minPrice) and the max profit
+// Ex. [7, 1, 5, 3, 6, 4]   => 5    bec 6 - 1
+
+function maxProfit(prices) {
+  
+}
 
 console.log(maxProfit([7, 1, 5, 3, 6, 4]));     //=> 5
 console.log(maxProfit([7, 6, 4, 3, 1]));        //=> 0

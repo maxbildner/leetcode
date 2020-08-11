@@ -138,8 +138,9 @@ MyQueueV1.prototype.empty = function () {
 // TIME COMPLEXITY:  O(N),      N = length of stack
 // SPACE COMPLEXITY: O(N)    
 
+
 // () => undefined
-var MyQueue = function () {                                                     // no params          
+var MyQueueV2 = function () {                                                     // no params          
   this.queue = [];                                                              // stack1 can only use push, pop, peek last ele (top), size
   this.stack = [];                                                              // stack2 another array stack just the reverse of queue
   this.front = null;                                                            // stores front of queue for fast peek retrieval
@@ -149,7 +150,7 @@ var MyQueue = function () {                                                     
 // Push element x to the back of queue
 // (number) => undefined
 // TIME COMPLEXITY: O(1) 
-MyQueue.prototype.push = function (x) {
+MyQueueV2.prototype.push = function (x) {
   if (this.queue.length === 0) {                                                // pushing num to stack no matter what, but capturing front only if queue is empty
     this.front = x;
   }
@@ -161,7 +162,7 @@ MyQueue.prototype.push = function (x) {
 // Removes the element from in front of queue and returns that element
 // ()  =>  number
 // TIME COMPLEXITY: O(N) TIME, N = stack length
-MyQueue.prototype.pop = function () {
+MyQueueV2.prototype.pop = function () {
   if (this.stack.length === 0) {                                                // only popping queue if stack is empty
     while (this.queue.length > 0) {                                             // build a reversed queue (stack) by continuously popping queue and pushing into another stack
       this.stack.push(this.queue.pop());
@@ -175,7 +176,7 @@ MyQueue.prototype.pop = function () {
 // Get the front element
 // ()  =>  number
 // TIME COMPELXITY: O(1)
-MyQueue.prototype.peek = function () {
+MyQueueV2.prototype.peek = function () {
   if (this.stack.length !== 0) {                                                // if stack is not empty, return last num in stack
     return this.stack[this.stack.length - 1];
   }
@@ -186,52 +187,194 @@ MyQueue.prototype.peek = function () {
 // returns whether queue is empty
 // ()  => boolean
 // TIME COMPELXITY: O(1)
-MyQueue.prototype.empty = function () {
+MyQueueV2.prototype.empty = function () {
   return this.queue.length === 0 && this.stack.length === 0;                    // empty if both stacks are empty
 };
 
 
 // EXAMPLES
+// let niceQueue = new MyQueueV2();
+// console.log('empty: ', niceQueue.empty());   //=> true
+// console.log(' ');
+// niceQueue.push(1);
+// console.log('queue: ', niceQueue.queue);     //=> [ 1 ]
+// console.log('stack: ', niceQueue.stack);     //=> [ ]
+// console.log('peek: ', niceQueue.peek());     //=> 1 
+// console.log('empty: ', niceQueue.empty());   //=> false
+
+// console.log(' ');
+// niceQueue.push(2);
+// console.log('queue: ', niceQueue.queue);     //=> [ 1, 2 ]
+// console.log('stack: ', niceQueue.stack);     //=> [ ]
+// console.log('peek: ', niceQueue.peek());     //=> 1 
+// console.log('empty: ', niceQueue.empty());   //=> false
+
+// console.log(' ');
+// niceQueue.push(3);
+// console.log('queue: ', niceQueue.queue);     //=> [ 1, 2, 3 ]
+// console.log('stack: ', niceQueue.stack);     //=> [ ]             
+// console.log('peek: ', niceQueue.peek());     //=> 1 
+// console.log('empty: ', niceQueue.empty());   //=> false
+
+// console.log(' ');
+// console.log('pop: ', niceQueue.pop());       //=> 1
+// console.log('queue: ', niceQueue.queue);     //=> [ ]
+// console.log('stack: ', niceQueue.stack);     //=> [ 3, 2 ]    
+// console.log('peek: ', niceQueue.peek());     //=> 2 
+// console.log('empty: ', niceQueue.empty());   //=> false
+
+// console.log(' ');
+// niceQueue.push(4);
+// console.log('queue: ', niceQueue.queue);     //=> [ 4 ]
+// console.log('stack: ', niceQueue.stack);     //=> [ 3, 2 ]
+// console.log('peek: ', niceQueue.peek());     //=> 2
+// console.log('empty: ', niceQueue.empty());   //=> false
+
+// console.log(' ');
+// console.log('pop: ', niceQueue.pop());       //=> 2
+// console.log('queue: ', niceQueue.queue);     //=> [ 4 ]
+// console.log('stack: ', niceQueue.stack);     //=> [ 3 ]
+// console.log('peek: ', niceQueue.peek());     //=> 3 
+// console.log('empty: ', niceQueue.empty());   //=> false
+
+
+
+
+
+// *****************************************************************************
+// PRACTICE:
+//    push(x) => undefined   O(1) TIME. Push element x to the back of queue.
+//    pop()   => number      O(1) TIME (amoritzed) Removes the element from in front of queue.
+//    peek()  => number      O(1) TIME. Get the front element.
+//    empty() => boolean     O(1) TIME. Return whether the queue is empty.
+
+// () => undefined
+var MyQueue = function () {                     // use two stacks. 1 to manage #push, 1 to manage #pop                                  
+  this._stackPush = [];                         
+  this._stackPop = [];                          // end/pop of this stack is correct dequeue order
+  this.front = null;
+};
+
+
+// Push element x to the back of queue
+// (number) => undefined
+// TIME COMPLEXITY: O(1) 
+MyQueue.prototype.push = function (num) {
+  // if stackPop empty AND .front not set, capture num as .front
+  if (!this._stackPush.length) {
+    this.front = num;
+  }
+
+  this._stackPush.push(num);                    // push num to stackPush
+};
+
+
+// Removes the element from in front of queue and returns that element
+// ()  =>  number
+// TIME COMPLEXITY: O(N) TIME, N = stack length
+MyQueue.prototype.pop = function () {
+  // if stackPop empty, continously pop of stackPush and move nums to stackPop
+  if (!this._stackPop.length) {
+    while (this._stackPush.length) {
+      this._stackPop.push(this._stackPush.pop());
+    }
+
+    // pop off last num in stackPop and return it
+    return this._stackPop.pop();
+
+  // if stackPop NOT empty, just pop off last num of stackPop and return it
+  } else {
+    return this._stackPop.pop();
+  }
+};
+
+
+// Get the front element
+// ()  =>  number
+// TIME COMPELXITY: O(1)
+MyQueue.prototype.peek = function () {  
+  // if there are items in stackPop, just get last item
+  if (this._stackPop.length) {
+    return this._stackPop[this._stackPop.length - 1];
+
+  // if items in queue, return .front
+  } else if (!this.empty()) {
+    return this.front;
+  }
+};
+
+
+// returns whether queue is empty
+// ()  => boolean
+// TIME COMPELXITY: O(1)
+MyQueue.prototype.empty = function () {
+  return this._stackPush.length + this._stackPop.length === 0;
+};
+
+
+// EXAMPLES
 let niceQueue = new MyQueue();
-console.log('empty: ', niceQueue.empty());   //=> true
+console.log('empty: ', niceQueue.empty());           //=> true
 console.log(' ');
 niceQueue.push(1);
-console.log('queue: ', niceQueue.queue);     //=> [ 1 ]
-console.log('stack: ', niceQueue.stack);     //=> [ ]
-console.log('peek: ', niceQueue.peek());     //=> 1 
-console.log('empty: ', niceQueue.empty());   //=> false
+console.log('#PUSH 1');
+console.log('stackPush: ', niceQueue._stackPush);    //=> [ 1 ]
+console.log('stackPop: ', niceQueue._stackPop);      //=> [ ]
+console.log('peek: ', niceQueue.peek());             //=> 1 
+console.log('empty: ', niceQueue.empty());           //=> false
 
 console.log(' ');
 niceQueue.push(2);
-console.log('queue: ', niceQueue.queue);     //=> [ 1, 2 ]
-console.log('stack: ', niceQueue.stack);     //=> [ ]
-console.log('peek: ', niceQueue.peek());     //=> 1 
-console.log('empty: ', niceQueue.empty());   //=> false
+console.log('#PUSH 2');
+console.log('stackPush: ', niceQueue._stackPush);    //=> [ 1, 2 ]
+console.log('stackPop: ', niceQueue._stackPop);      //=> [ ]
+console.log('peek: ', niceQueue.peek());             //=> 1 
+console.log('empty: ', niceQueue.empty());           //=> false
 
 console.log(' ');
 niceQueue.push(3);
-console.log('queue: ', niceQueue.queue);     //=> [ 1, 2, 3 ]
-console.log('stack: ', niceQueue.stack);     //=> [ ]             
-console.log('peek: ', niceQueue.peek());     //=> 1 
-console.log('empty: ', niceQueue.empty());   //=> false
+console.log('#PUSH 3');
+console.log('stackPush: ', niceQueue._stackPush);    //=> [ 1, 2, 3 ]
+console.log('stackPop: ', niceQueue._stackPop);      //=> [ ]
+console.log('peek: ', niceQueue.peek());             //=> 1 
+console.log('empty: ', niceQueue.empty());           //=> false
 
 console.log(' ');
-console.log('pop: ', niceQueue.pop());       //=> 1
-console.log('queue: ', niceQueue.queue);     //=> [ ]
-console.log('stack: ', niceQueue.stack);     //=> [ 3, 2 ]    
-console.log('peek: ', niceQueue.peek());     //=> 2 
-console.log('empty: ', niceQueue.empty());   //=> false
+console.log('#POP');
+console.log(niceQueue.pop());                        //=> 1
+console.log('stackPush: ', niceQueue._stackPush);    //=> [ ]
+console.log('stackPop: ', niceQueue._stackPop);      //=> [ 3, 2 ]
+console.log('peek: ', niceQueue.peek());             //=> 2 
+console.log('empty: ', niceQueue.empty());           //=> false
+
+console.log(' ');
+console.log('#POP');
+console.log(niceQueue.pop());                        //=> 2
+console.log('stackPush: ', niceQueue._stackPush);    //=> [ ]
+console.log('stackPop: ', niceQueue._stackPop);      //=> [ 3 ]
+console.log('peek: ', niceQueue.peek());             //=> 3 
+console.log('empty: ', niceQueue.empty());           //=> false
 
 console.log(' ');
 niceQueue.push(4);
-console.log('queue: ', niceQueue.queue);     //=> [ 4 ]
-console.log('stack: ', niceQueue.stack);     //=> [ 3, 2 ]
-console.log('peek: ', niceQueue.peek());     //=> 2
-console.log('empty: ', niceQueue.empty());   //=> false
+console.log('#PUSH 4');
+console.log('stackPush: ', niceQueue._stackPush);    //=> [ 4 ]
+console.log('stackPop: ', niceQueue._stackPop);      //=> [ 3 ]
+console.log('peek: ', niceQueue.peek());             //=> 3 
+console.log('empty: ', niceQueue.empty());           //=> false
 
 console.log(' ');
-console.log('pop: ', niceQueue.pop());       //=> 2
-console.log('queue: ', niceQueue.queue);     //=> [ 4 ]
-console.log('stack: ', niceQueue.stack);     //=> [ 3 ]
-console.log('peek: ', niceQueue.peek());     //=> 3 
-console.log('empty: ', niceQueue.empty());   //=> false
+console.log('#POP');
+console.log(niceQueue.pop());                        //=> 3
+console.log('stackPush: ', niceQueue._stackPush);    //=> [ 4 ]
+console.log('stackPop: ', niceQueue._stackPop);      //=> [ ]
+console.log('peek: ', niceQueue.peek());             //=> 4 
+console.log('empty: ', niceQueue.empty());           //=> false
+
+console.log(' ');
+console.log('#POP');
+console.log(niceQueue.pop());                        //=> 4
+console.log('stackPush: ', niceQueue._stackPush);    //=> [ ]
+console.log('stackPop: ', niceQueue._stackPop);      //=> [ ]
+console.log('peek: ', niceQueue.peek());             //=> undefined 
+console.log('empty: ', niceQueue.empty());           //=> true
