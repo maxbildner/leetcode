@@ -92,7 +92,7 @@ function maxProfit(prices) {
 // Ex. [7, 1, 5, 3, 6, 4]   => 5    bec 6 - 1
 
 function maxProfit(prices) {
-  
+
 }
 
 console.log(maxProfit([7, 1, 5, 3, 6, 4]));     //=> 5

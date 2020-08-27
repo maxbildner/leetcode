@@ -109,7 +109,7 @@ MovingAverage.prototype.next = function (val) {
 
 
 
-
+// TIME: 22m
 // ****************************************************************
 // PRACTICE
 // TIME COMPLEXITY (#next): 	O(1)  if we use linked list in JS.  O(N) if we use array to implement queue because .shift() is O(N)

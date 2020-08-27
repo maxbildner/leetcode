@@ -59,6 +59,10 @@ var sortedArrayToBST = function (nums) {
 
 
 
+
+
+// PRACTICE:
+// TIME: 9:12AM
 // *****************************************************************************
 // TIME COMPLEXITY:  O(N),			N = number of nodes (length of array)
 // SPACE COMPLEXITY: O(N)		    N + log(N)    N for output, log(N) for recursive stack

@@ -100,6 +100,40 @@ var maxDepth = function (treeNode) {
 // 			 /  \
 // 		  15   7
 //
+// let three = new TreeNode(3);
+// let nine = new TreeNode(9);
+// let twenty = new TreeNode(20);
+// let fifteen = new TreeNode(15);
+// let seven = new TreeNode(7);
+// three.left = nine;
+// three.right = twenty;
+// twenty.right = seven;
+// twenty.left = fifteen;
+// // console.log(maxDepth(nine));              //=> 1
+// // console.log(maxDepth(twenty));            //=> 2
+// console.log(maxDepth(three));             //=> 3
+
+
+
+
+// *****************************************************************************
+// VERSION 1 RECURSION PRACTICE
+// TIME COMPLEXITY:  O(N),			N = Number of nodes in tree
+// SPACE COMPLEXITY: O(N)				worst case, tree unbalanced so recursion call would occur N times (each node only has a left child)
+
+// (TreeNode) => Number
+var maxDepth = function (treeNode) {
+
+};
+
+
+// EXAMPLE 1:
+// 			 3
+// 			/ \
+// 		 9  20
+// 			 /  \
+// 		  15   7
+//
 let three = new TreeNode(3);
 let nine = new TreeNode(9);
 let twenty = new TreeNode(20);
@@ -109,6 +143,6 @@ three.left = nine;
 three.right = twenty;
 twenty.right = seven;
 twenty.left = fifteen;
-// console.log(maxDepth(nine));              //=> 1
-// console.log(maxDepth(twenty));            //=> 2
+console.log(maxDepth(nine));              //=> 1
+console.log(maxDepth(twenty));            //=> 2
 console.log(maxDepth(three));             //=> 3

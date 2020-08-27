@@ -61,7 +61,25 @@ function treeHeight(node) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+// PRACTICE
+// TIME: 16M
 // *****************************************************************************
+// TIME COMPLEXITY:  O(),			
+// SPACE COMPLEXITY: O()	
+
+// treeNode  =>  boolean
 function isBalanced(root) {
  
 }
@@ -70,7 +88,7 @@ function isBalanced(root) {
 // HELPER
 // (node) => Number
 function treeHeight(node) {
-
+ 
 }
 
 
@@ -90,7 +108,7 @@ three1.left = nine;
 three1.right = twenty;
 twenty.right = seven1;
 twenty.left = fifteen;
-// console.log(treeHeight(three1));           //=> 3
+// console.log(treeHeight(three1));           //=> 2
 console.log(isBalanced(three1));              //=> true
 
 
@@ -115,7 +133,7 @@ two.left = four;
 two.right = five;
 four.left = six;
 four.right = seven;
-// console.log(treeHeight(one));             //=> 4
+// console.log(treeHeight(one));             //=> 3
 console.log(isBalanced(one));                //=> false
 
 
