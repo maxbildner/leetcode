@@ -31,8 +31,11 @@
 // *****************************************************************************
 // VERSION 1- 
 // https://leetcode.com/problems/reorder-data-in-log-files/discuss/302285/Javascript-sort()
-// TIME COMPLEXITY:  O( ), 
-// SPACE COMPLEXITY: O( )
+// TIME COMPLEXITY:  O(M * N * log(N)),    N = number of logs, M = max length of a single log 
+//      N * log(N)   comes from Array.sort() based on quickSort. The compare() function is called N * log(N) times
+//      M            comes from each compare() function
+// SPACE COMPLEXITY: O(M * log(N))
+//      M            each call of compare() uses O(M)
 
 // (array) => array
 var reorderLogFiles = function (logs) {
