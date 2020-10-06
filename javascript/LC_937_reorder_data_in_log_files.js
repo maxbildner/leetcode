@@ -20,7 +20,7 @@
 //    3 <= logs[i].length <= 100
 //    logs[i] is guaranteed to have an identifier, and a word after the identifier
 // 
-// Note* not all identifiers will start with "dig" or "let"
+// NOTE* not all identifiers will start with "dig" or "let"
 // 
 // Example 1:
 // Input: logs = ["dig1 8 1 5 1", "let1 art can", "dig2 3 6", "let2 own kit dig", "let3 art zero"]
