@@ -29,30 +29,35 @@ class ListNode {
 // (ListNode 1, ListNode 2)       =>  ListNode
 // (1 -> 2 -> 4,   1 -> 3 -> 4)   =>  1 -> 1 -> 2 -> 3 -> 4 -> 4
 function mergeTwoLists(l1, l2) {
-  let merged = new ListNode(-1);                                                // 1) create new node (we'll return the next node to this)
-  let currentNode = merged;                                                     // 2) var to track current node
+  // create new node to return (we'll return the next node to this)
+  let merged = new ListNode(-1);
 
-  while (l1 && l2) {                                                            // 3) loop through lists 1 node at a time (break when any of the lists are null)
+  // create var to track current node
+  let currentNode = merged;
 
-    if (l1.val < l2.val) {                                                      // 4) if l1 val < l2 val, update currentNode to point to l1, update l1 pointer
+  // loop through both lists 1 node at a time (exit if any node is null/we reached end of node)
+  while (l1 && l2) {
+
+    // check which node has a smaller value
+    if (l1.val <= l2.val) {
+
+      // update currentNode's next to point to smaller node
       currentNode.next = l1;
+
+      // update l1
       l1 = l1.next;
 
-    } else {                                                                    // 5) if l1 val >= l2 val, update currentNode to point to l2, update l2 pointer
+    } else {
       currentNode.next = l2;
       l2 = l2.next;
     }
 
-    currentNode = currentNode.next;                                             // 6) update current node
+    // update currentNode
+    currentNode = currentNode.next;
   }
 
-  // if (l1) {
-  //   currentNode.next = l1;
-  // } else if (l2) {
-  //   currentNode.next = l2;
-  // }
-
-  currentNode.next = l1 || l2;                                                  // 7) "adds" any remainder to the longer list (same as above if else if)
+  // "add" remaining list to currentNode
+  currentNode.next = l1 || l2;
 
   return merged.next;
 }
