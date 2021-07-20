@@ -51,19 +51,49 @@ const reverseListV1 = function(head) {
 // a -> b -> c -> d             d -> c -> b -> a
 // (a) => (d)
 var reverseList = function (head) {
-	let prev = null;																															// 1) create var to track prev node, set to null
+	let prev = null;								// 1) create var to track prev node, set to null
 
-	while (head !== null) {																												// 2) loop through all nodes, head will be our current node (need to keep updating it)
+	while (head !== null) {					// 2) loop through list, head will be our current node (need to keep updating it)
 
-		let next = head.next;																												// 3) grab next node from head
+		let next = head.next;					// 3) grab next node from head
 
-		head.next = prev;																														// 4) make head point to prev node
+		head.next = prev;							// 4) make head point to prev node
 
-		prev = head;																																// 5) update prev to head
+		prev = head;									// 5) update prev to head
 
-		head = next;																																// 6) update head to next
+		head = next;									// 6) update head to next
 	}
 
-	return prev;																																	// 7) return prev
+	return prev;										// 7) return prev
 };
 // NOTE* make A "point to" C == make B's next property equal to C (i.e. a.next = c)
+
+
+
+
+
+// EXAMPLE 1
+let a = new ListNode('a');
+let b = new ListNode('b');
+let c = new ListNode('c');
+a.next = b;
+b.next = c;
+console.log(printList(reverseList(a)));		// 'c -> b -> a'
+
+
+function printList(n) {
+	let str = '';
+	while (n) {
+
+		if (n.next) {
+			str += n.val + ' -> ';
+		} else {
+			str += n.val;
+		}
+
+		n = n.next;
+	}
+
+	return str;
+}
+// console.log(printList(a));		// 'a -> b -> c'
