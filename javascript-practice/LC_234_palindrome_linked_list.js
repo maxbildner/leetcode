@@ -22,16 +22,14 @@ function ListNode(val, next) {
 }
 
 
-
 // *****************************************************************************
-// VERSION 1- ITERATIVE, get length of list, get midIdx, grab head of 2nd half of linked list
-// 						grab tail of 1st half of linked list, reverse 2nd half of linked list (use helper function in place)
+// VERSION 1- ITERATIVE
 // TIME COMPLEXITY:  O(N), N = length of list
 // SPACE COMPLEXITY: O(1)
 
 // 1 -> 0 -> 1     => true
 var isPalindrome = function (head) {
-  
+	
 };
 
 

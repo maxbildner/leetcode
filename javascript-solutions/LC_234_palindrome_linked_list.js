@@ -24,7 +24,8 @@ function ListNode(val, next) {
 
 
 // *****************************************************************************
-// VERSION 1- ITERATIVE
+// VERSION 1- ITERATIVE, get length of list, get midIdx, grab head of 2nd half of linked list
+// 						grab tail of 1st half of linked list, reverse 2nd half of linked list (use helper function in place)
 // TIME COMPLEXITY:  O(N), N = length of list
 // SPACE COMPLEXITY: O(1)
 
@@ -38,37 +39,25 @@ var isPalindrome = function (head) {
     currentNode = currentNode.next;
     length++;
   }
-  if (length === 1) return true;
+  if (length === 1) return true;                  // edge case- exit if list only has 1 node
   
-  let midIdx = Math.floor(length/2);							// 2) loop to midpoint of linked list (grab midIdx)
-  // midIdx = 1
+  let midIdx = Math.floor(length/2);							// grab mid index of list
   
-  let l2Head = head;															// 3) grab head of 2nd half of linked list
-  let l1Tail = null;															// 4) grab end node of list 1 (point to null to sever connection of 1st half of list)
-  for (let i = 0; i < midIdx; i++) {
+  let l2Head = head;															// grab head of 2nd half of linked list
+  let l1Tail = null;															// grab end node of list 1 (point to null to sever connection of 1st half of list)
+  for (let i = 0; i < midIdx; i++) {              // 2) loop to midpoint of linked list (grab midIdx)
     l1Tail = l2Head;
     l2Head = l2Head.next;
-
-    // i = 0:   l1Tail = 1      l2Head = 0
   }
-  // console.log(l1Tail);
-  // console.log(l2Head);
-  // l1Tail = { val: 1, next: ListNode { val: 0, next: ListNode { val: 1, next: null } } }
-  // l2Head = { val: 0, next: ListNode { val: 1, next: null } }
   
-  l2Head = reverseList(l2Head);										// 5) reverse second half of linked list in place (use helper function)
-  // console.log(stringify(l2Head));   // 1 -> 0
+  l2Head = reverseList(l2Head);										// 3) reverse second half of linked list in place (use helper function)
   
-  // l1Tail.next = l2Head; 
-  l1Tail.next = null; 
-  // console.log(stringify(head));  
-  // 1      -> 1 -> 0
+  l1Tail.next = null;                             // 4) sever connection of 1st half of list (l1Tail)
   
-  let l1Head = head;															// 6) loop through both linked lists and compare each node value
-  // l1Head.val = 1     l2Head.val = 1
-
-  while (l1Head && l2Head) {
-    if (l1Head.val !== l2Head.val) return false;
+  let l1Head = head;															
+  
+  while (l1Head && l2Head) {                      // 5) loop through both linked lists and compare each node value
+    if (l1Head.val !== l2Head.val) return false;  // exit if node vals arent equal
     l1Head = l1Head.next;
     l2Head = l2Head.next;
   }
