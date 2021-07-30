@@ -17,6 +17,7 @@ function ListNode(val) {
 // SPACE CPMLEXITY: O(1)
 // a -> b -> c -> d             d -> c -> b -> a
 // (a) => (d)
+// TIME: 19m  7/30/21
 var reverseList = function (head) {
 	
 };

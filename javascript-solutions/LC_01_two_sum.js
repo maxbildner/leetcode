@@ -16,7 +16,8 @@
 //   0  1  2  3  4
 // [ 2, 7, 3, 0, 6 ], 8   => [ 0, 4 ]
 const twoSum = (array, target) => {
-	// create hash table, keys = nums in array, val = corresponding index in array
+	// create hash table, keys=nums in array, val=corresponding index in array
+	// table lets us have fast look up for complementing numbers O(1) Time
 	let table = {};
 
 	// loop through array
@@ -53,7 +54,8 @@ console.log(twoSum([3, 2, 4], 6));    		  	//=> [1, 2]
 //   0  1  2  3  4
 // [ 2, 7, 1, 0, 6 ], 8   => [ [1, 2], [0, 4] ]
 const twoSumV2 = (array, target) => {
-	// create hash table, keys = nums in array, val = corresponding index in array
+	// create hash table, keys=nums in array, val=corresponding index in array
+	// table lets us have fast look up for complementing numbers O(1) Time
 	let table = {};
 
 	// create empty array to return 
