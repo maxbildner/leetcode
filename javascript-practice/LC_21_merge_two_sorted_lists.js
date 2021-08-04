@@ -4,8 +4,8 @@
 // INPUT:  2 Nodes, representing heads of two different sorted singly linked lists
 // OUTPUT: Node, representing head of singly linked list
 //
-// Merge two sorted linked lists and return it as a new sorted list. The new 
-// list should be made by splicing together the nodes of the first two lists.
+// Merge two sorted linked lists and return it as a new sorted list (but use O(1) Space!). 
+// The new list should be made by splicing together the nodes of the first two lists.
 // NOTE* lists could be different lengths
 // Example:
 // Inputs:  1 -> 2 -> 4,   1 -> 3 -> 4
@@ -29,37 +29,7 @@ class ListNode {
 // (ListNode 1, ListNode 2)       =>  ListNode
 // (1 -> 2 -> 4,   1 -> 3 -> 4)   =>  1 -> 1 -> 2 -> 3 -> 4 -> 4
 function mergeTwoLists(l1, l2) {
-  // create new node to return (we'll return the next node to this)
-  let merged = new ListNode(-1);
 
-  // create var to track current node
-  let currentNode = merged;
-
-  // loop through both lists 1 node at a time (exit if any node is null/we reached end of node)
-  while (l1 && l2) {
-
-    // check which node has a smaller value
-    if (l1.val <= l2.val) {
-
-      // update currentNode's next to point to smaller node
-      currentNode.next = l1;
-
-      // update l1
-      l1 = l1.next;
-
-    } else {
-      currentNode.next = l2;
-      l2 = l2.next;
-    }
-
-    // update currentNode
-    currentNode = currentNode.next;
-  }
-
-  // "add" remaining list to currentNode
-  currentNode.next = l1 || l2;
-
-  return merged.next;
 }
 
 

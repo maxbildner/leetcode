@@ -4,8 +4,8 @@
 // INPUT:  2 Nodes, representing heads of two different sorted singly linked lists
 // OUTPUT: Node, representing head of singly linked list
 //
-// Merge two sorted linked lists and return it as a new sorted list. The new 
-// list should be made by splicing together the nodes of the first two lists.
+// Merge two sorted linked lists and return it as a new sorted list (but use O(1) Space!).
+// The new list should be made by splicing together the nodes of the first two lists.
 // NOTE* lists could be different lengths
 // Example:
 // Inputs:  1 -> 2 -> 4,   1 -> 3 -> 4
@@ -29,30 +29,30 @@ class ListNode {
 // (ListNode 1, ListNode 2)       =>  ListNode
 // (1 -> 2 -> 4,   1 -> 3 -> 4)   =>  1 -> 1 -> 2 -> 3 -> 4 -> 4
 function mergeTwoLists(l1, l2) {
-  let merged = new ListNode(-1);                                                // 1) create new node (we'll return the next node to this)
-  let currentNode = merged;                                                     // 2) var to track current node
+  let merged = new ListNode(-1);                                                // 1) create new node (we'll return the next node to this). Make val -1 for easy comparison later
+  let prevNode = merged;                                                        // 2) var to track previous node
 
   while (l1 && l2) {                                                            // 3) loop through lists 1 node at a time (break when any of the lists are null)
 
-    if (l1.val < l2.val) {                                                      // 4) if l1 val < l2 val, update currentNode to point to l1, update l1 pointer
-      currentNode.next = l1;
+    if (l1.val <= l2.val) {                                                     // 4) if l1 val <= l2 val, update prevNode to point to l1, update l1
+      prevNode.next = l1;
       l1 = l1.next;
 
-    } else {                                                                    // 5) if l1 val >= l2 val, update currentNode to point to l2, update l2 pointer
-      currentNode.next = l2;
+    } else {                                                                    // 5) if l1 val > l2 val, update prevNode to point to l2, update l2
+      prevNode.next = l2;
       l2 = l2.next;
     }
 
-    currentNode = currentNode.next;                                             // 6) update current node
+    prevNode = prevNode.next;                                                   // 6) update prevNode
   }
 
   // if (l1) {
-  //   currentNode.next = l1;
+  //   prevNode.next = l1;
   // } else if (l2) {
-  //   currentNode.next = l2;
+  //   prevNode.next = l2;
   // }
 
-  currentNode.next = l1 || l2;                                                  // 7) "adds" any remainder to the longer list (same as above if else if)
+  prevNode.next = l1 || l2;                                                     // 7) "adds" any remainder to the longer list (same as above if else if)
 
   return merged.next;
 }
