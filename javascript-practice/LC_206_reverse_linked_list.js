@@ -17,7 +17,7 @@ function ListNode(val) {
 // SPACE CPMLEXITY: O(1)
 // a -> b -> c -> d             d -> c -> b -> a
 // (a) => (d)
-// TIME: 19m  7/30/21
+// TIME: 20m 8/6/21
 var reverseList = function (head) {
 	
 };
@@ -31,7 +31,7 @@ let c = new ListNode('c');
 a.next = b;
 b.next = c;
 console.log(printList(reverseList(a)));		// 'c -> b -> a'
-
+console.log(a)
 
 function printList(n) {
 	let str = '';

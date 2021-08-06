@@ -29,7 +29,7 @@ class ListNode {
 // (ListNode 1, ListNode 2)       =>  ListNode
 // (1 -> 2 -> 4,   1 -> 3 -> 4)   =>  1 -> 1 -> 2 -> 3 -> 4 -> 4
 function mergeTwoLists(l1, l2) {
-  let merged = new ListNode(-1);                                                // 1) create new node (we'll return the next node to this). Make val -1 for easy comparison later
+  let merged = new ListNode(-1);                                                // 1) create new node (we'll return the next node to this). value can be anything, -1 to represent preHead index
   let prevNode = merged;                                                        // 2) var to track previous node
 
   while (l1 && l2) {                                                            // 3) loop through lists 1 node at a time (break when any of the lists are null)
