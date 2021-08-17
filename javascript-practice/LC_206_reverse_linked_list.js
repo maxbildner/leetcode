@@ -12,6 +12,7 @@ function ListNode(val) {
 }
 
 
+// TIME: 8/16/21		18min
 // SOLUTION V1- OPTIMAL LC SOLUTION, iterative, mutates list/in place, less temp variables
 // TIME COMPLEXITY: O(n),   n = list length
 // SPACE CPMLEXITY: O(1)
@@ -19,7 +20,7 @@ function ListNode(val) {
 // (a) => (d)
 // TIME: 20m 8/6/21
 var reverseList = function (head) {
-	
+
 };
 // NOTE* make A "point to" C == make B's next property equal to C (i.e. a.next = c)
 

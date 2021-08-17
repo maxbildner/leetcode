@@ -23,20 +23,24 @@
 //                         A → B → C
 //                             ↑   ↓
 //                             E ← D
-
+// Leetcode Definition for singly - linked list.
+function ListNode(val, next) {
+  this.val = (val === undefined ? 0 : val)
+  this.next = (next === undefined ? null : next)
+}
 
 
 // *****************************************************************************
-// VERSION 1- LEET CODE SOLUTION
+// VERSION 1- MY SOLUTION
 // HINT: Imagine two runners running on a track at different speed. What happens 
 //  when the track is actually a circle? Consider a slow pointer that moves one 
 //  step at a time while the fast pointer moves two steps at a time.
 // 
 // TIME COMPLEXITY:   O(N),   O(N + K) => O(N),  N = Length of list
 //      N = Non-Cyclic length of list (num nodes)
-//      K = Cyclic length of list
+//      K = Cyclic length of list (if a -> b -> c -> d -> b, then k = 3, n = 4) 
 // SPACE COMPLEXITY:  O(1),
-// INPUTS:  1 linked list object
+// INPUTS:  1 linked list object (head node)
 // OUTPUT:  boolean, true if cyclical linked list, false if not
 // ASSUMPTIONS
 //  - we DO NOT have O(1) access to the linked lists tail!!
@@ -45,21 +49,129 @@
 // A -> B -> C -> D -> E -> B     =>      true
 // if there is a cycle, eventually slow and fast will meet
 function hasCycle(head) {
-  if (!head) return false;                                                      //    edge case if list empty
-  let slow = head;                                                              // 1) slow runner will move 1 node at a time
-  let fast = head;                                                              // 2) fast runner will move 2 nodes at a time
+  if (!head) return false;																	// edge case if no head
 
-  while (fast) {                                                                // 3) keep looping as long as fast node exists (not null)
-    if (fast.next === null) {                                                   // 4) if no node after fast (null), then there's no cycle
+	let slow = head;																					// create two pointers initialized to head, slow moves 1 node, fast moves 2 nodes at a time
+	let fast = head;
+
+	while (fast) {																						// loop while fast pointer is NOT null (or while fast pointer exists)
+		
+		if (fast.next == null || fast == null) return false;		// if fast.next or fast is null, we do NOT have a cycle
+
+		slow = slow.next;																				// update slow and fast pointers
+		fast = fast.next.next;
+
+		if (slow === fast) return true;													// if pointers equal, runners have met, we have a cycle!
+ 	}
+
+	return false;																							// if fast pointer IS null, we do NOT have a cycle
+}
+
+
+
+
+// *****************************************************************************
+// VERSION 2- LEETCODE SOLUTION (SIMILAR)
+// HINT: Imagine two runners running on a track at different speed. What happens 
+//  when the track is actually a circle? Consider a slow pointer that moves one 
+//  step at a time while the fast pointer moves two steps at a time.
+// 
+// TIME COMPLEXITY:   O(N),   O(N + K) => O(N),  N = Length of list
+//      N = Non-Cyclic length of list (num nodes)
+//      K = Cyclic length of list
+// SPACE COMPLEXITY:  O(1),
+// INPUTS:  1 linked list object (head node)
+// OUTPUT:  boolean, true if cyclical linked list, false if not
+// ASSUMPTIONS
+//  - we DO NOT have O(1) access to the linked lists tail!!
+// EX Input:
+// A -> B -> C -> D -> E          =>      false
+// A -> B -> C -> D -> E -> B     =>      true
+// if there is a cycle, eventually slow and fast will meet
+function hasCycleV2(head) {
+  if (!head) return false;                        // edge case if no node
+
+  let slow = head;				                        // moves 1 node at a time
+  let fast = head.next;			                      // moves 2 nodes at a time (initialize to next node)
+  
+  while (slow != fast) {                          // loop while pointers are NOT equal
+
+    if (fast === null || fast.next === null) {    // if fast or fast.next are null, exit false
       return false;
-
-    } else {                                                                    // 5) else there is a node after fast, update slow/fast pointers
-      fast = fast.next.next;
-      slow = slow.next;
-    }
-
-    if (slow === fast) return true;                                             // 6) if slow == fast, then we have a cycle (runners meet)
+    } 
+    
+    slow = slow.next;
+    fast = fast.next.next;
   }
 
-  return false;                                                                 // 7) if we get here that means we've looped through all nodes and we've reached null, so no cycle
+  return true;
 }
+
+
+// *****************************************************************************
+// VERSION 3- LEETCODE SOLUTION (SIMILAR)
+// HINT: Imagine two runners running on a track at different speed. What happens 
+//  when the track is actually a circle? Consider a slow pointer that moves one 
+//  step at a time while the fast pointer moves two steps at a time.
+// 
+// TIME COMPLEXITY:   O(N),   O(N + K) => O(N),  N = Length of list
+//      N = Non-Cyclic length of list (num nodes)
+//      K = Cyclic length of list
+// SPACE COMPLEXITY:  O(1),
+// INPUTS:  1 linked list object (head node)
+// OUTPUT:  boolean, true if cyclical linked list, false if not
+// ASSUMPTIONS
+//  - we DO NOT have O(1) access to the linked lists tail!!
+// EX Input:
+// A -> B -> C -> D -> E          =>      false
+// A -> B -> C -> D -> E -> B     =>      true
+// if there is a cycle, eventually slow and fast will meet
+function hasCycleV3(head) {
+	if (!head) return false;						// edge case- exit if no head
+
+	let slow = head;										// slow pointer moves 1 node at a time, fast pointer moves 2 nodes
+	let fast = head;
+
+	while (fast && fast.next) {					// loop while fast and fast.next exist (not null)!!
+		
+		slow = slow.next;
+		fast = fast.next.next;
+		
+		if (slow === fast) return true;		// runners meet, cycle exists!
+	}
+
+	return false;
+}
+
+
+
+
+
+// Example 1
+// A -> B -> C -> D -> E -> B     		
+let a = new ListNode('A');
+let b = new ListNode('B');
+let c = new ListNode('C');
+let d = new ListNode('D');
+let e = new ListNode('E');
+a.next = b;
+b.next = c;
+c.next = d;
+d.next = e;
+e.next = b;
+console.log(hasCycle(a));           	//=> true
+
+
+// Example 2
+let n1 = new ListNode(1);
+console.log(hasCycle(n1));						//=> false
+
+// Example 3
+console.log(hasCycle(null));					//=> false
+
+// Example 4
+// 1 -> 2
+n1 = new ListNode(1);
+n2 = new ListNode(2);
+n1.next = n2;
+console.log(hasCycle(n1));						//=> false

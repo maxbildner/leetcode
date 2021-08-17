@@ -9,13 +9,15 @@
 // Output:  [0, 1]  Because nums[0] + nums[1] = 2 + 7 = 9
 
 
-// SOLUTION1- Hash Table
+// TIME: 8/17/21    4min
+// ***************************************************************************
+// SOLUTION1- Hash Table (OUTPUT ONLY HAS 1 PAIR)
 // Time Complexity: O(n), where n = input array length
 // Space Complexity: O(n) 
 // Solution Description: 
 //   0  1  2  3  4
 // [ 2, 7, 3, 0, 6 ], 8   => [ 0, 4 ]
-// TIME: 12min  8/6/21
+
 const twoSum = (array, target) => {
 
 }

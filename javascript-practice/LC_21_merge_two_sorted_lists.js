@@ -20,7 +20,7 @@ class ListNode {
 }
 
 
-// TIME: 13min 8/5/21
+// TIME: 15min  8/16/21
 // *****************************************************************************
 // SOLUTION V1- Iterative, just like merge helper in merge sort
 // MUTATES BOTH INPUTS

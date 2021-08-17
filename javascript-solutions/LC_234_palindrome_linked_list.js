@@ -2,7 +2,7 @@
 // EASY
 // https://leetcode.com/problems/palindrome-linked-list/
 //
-// Given a singly linked list, determine if it is a palindrome.
+// Given the head of a singly linked list, determine if it is a palindrome.
 // Example 1:
 // Input: 1 -> 2
 // Output: false
@@ -11,10 +11,13 @@
 // Input: 1 -> 2 -> 2 -> 1
 // Output: true
 //
+// Constraints:
+// - The number of nodes in the list is in the range [1, 105].
+// - 0 <= Node.val <= 9
+//
 // Follow up:
 // Could you do it in O(n) time and O(1) space ?
 //
-// 
 // Leetcode Definition for singly - linked list.
 function ListNode(val, next) {
   this.val = (val === undefined ? 0 : val)
@@ -30,7 +33,7 @@ function ListNode(val, next) {
 // SPACE COMPLEXITY: O(1)
 
 // 1 -> 0 -> 1     => true
-var isPalindrome = function (head) {
+var isPalindromeV1 = function (head) {
   if (!head) return true;
 
   let length = 0;																	// 1) get length of linked list O(N) Time, N = length of list
@@ -67,20 +70,81 @@ var isPalindrome = function (head) {
 
 
 // HELPER FUNCTION
-var reverseList = function (head) {
-  // 1) create vars to track current node (we're looping), and previous node
-  let prev = null;
-  let currentNode = head;
-
+function reverseList(head) {
+  // 1) create var to track previous node
+  let prev = null
+  
   // 2) loop through list node node at a time
-  while (currentNode) {
-    let next = currentNode.next;
-    currentNode.next = prev;
-    prev = currentNode
-    currentNode = next;
+  while (head) {
+    let next = head.next;         // temp var
+    head.next = prev;
+    prev = head;
+    head = next;
   }
+
   return prev;
 };
+
+
+
+// *****************************************************************************
+// VERSION 2- ITERATIVE, get length of list, get midIdx, grab head of 2nd half of linked list
+// 						grab tail of 1st half of linked list, reverse 2nd half of linked list (use helper function in place)
+//            uses 1 pass/loop instead of two in step 1. extra helper function to get mid node
+// TIME COMPLEXITY:  O(N), N = length of list
+// SPACE COMPLEXITY: O(1)
+// 1 -> 0 -> 1     => true
+var isPalindrome = function (head) {
+    
+    if (!head) return false;                              // edge case if no list
+
+    let list1Tail = getMidNode(head);                     // get tail of 1st half of list (use helper slow/fast pointer method)
+    let list2Head = list1Tail.next;                       // get head of 2nd half of list
+  
+    // "sever" lists in two
+    // reverse (in place) 2nd half of list (use helper function)
+    list1Tail.next = null;
+    list2Head = reverseList(list2Head);
+  
+    let list1Head = head;                                 // loop through both lists, compare each node, exit if not equal
+    while (list1Head && list2Head) {
+      if (list1Head.val !== list2Head.val) return false;
+      list1Head = list1Head.next;
+      list2Head = list2Head.next;
+    }
+  
+    return true;
+};
+
+
+// HELPER FUNCTION- gets tail of 1st half of list (ie midNode. if even, mid left)
+function getMidNode(head) {
+  let slow = head;
+  let fast = head;
+
+  while (fast.next && fast.next.next){
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  return slow;
+}
+
+
+// HELPER FUNCTION
+function reverseList(head) {
+  let prev = null
+  
+  while (head) {
+    let next = head.next;
+    head.next = prev;
+    prev = head;
+    head = next;
+  }
+
+  return prev;
+};
+
 
 
 // Example 1:
@@ -89,6 +153,7 @@ let n1 = new ListNode(1);
 let n2 = new ListNode(2);
 n1.next = n2;
 console.log(isPalindrome(n1));    //=> false
+// console.log(getMidNode(n1));   //=> 1
 
 // Example 2:
 // Input: 1 -> 2 -> 2 -> 1
@@ -99,7 +164,8 @@ let n4 = new ListNode(1);
 n1.next = n2;
 n2.next = n3;
 n3.next = n4;
-console.log(isPalindrome(n1));    //=> true
+console.log(isPalindrome(n1));      //=> true
+// console.log(getMidNode(n1));     //=> 2   (1st one so 2.next -> 2)
 
 // Example 3:
 // Input: 1 -> 2 -> 3 -> 2 -> 1
@@ -112,8 +178,8 @@ n1.next = n2;
 n2.next = n3;
 n3.next = n4;
 n4.next = n5;
-console.log(isPalindrome(n1));    //=> true
-
+console.log(isPalindrome(n1));      //=> true
+// console.log(getMidNode(n1));     //=> 3
 
 // Example 4:
 // Input: 1 -> 0 -> 1
@@ -122,7 +188,20 @@ n2 = new ListNode(0);
 n3 = new ListNode(1);
 n1.next = n2;
 n2.next = n3;
-console.log(isPalindrome(n1));    //=> true
+console.log(isPalindrome(n1));      //=> true
+// console.log(getMidNode(n1));     //=> 0
+
+// Example 5:
+// Input: 1
+n1 = new ListNode(1);
+console.log(isPalindrome(n1));      //=> true
+// console.log(getMidNode(n1));     //=> 1
+
+
+// Example 6:
+// Input: 1
+console.log(isPalindrome(null));    //=> false
+
 
 
 
