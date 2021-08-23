@@ -277,8 +277,8 @@
 
 // (number) => undefined
 var LRUCache = function (capacity) {
-  this.capacity = capacity;
-  this.count = 0; 
+  this.capacity = capacity;                                                     // max capacity of LRUCache
+  this.count = 0;                                                               // current capacity of LRUCache
   this.head = null;                                                             // node
   this.tail = null;                                                             // node
   this.cache = {};                                                              // values = nodes

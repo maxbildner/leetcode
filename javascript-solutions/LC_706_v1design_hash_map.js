@@ -27,7 +27,7 @@
 
 // TIME: 8/19/21	31min
 // *****************************************************************************
-// SOLUTION V2- Underlying array + 2D Array (for simplicity instead of linked list)
+// SOLUTION V1- Underlying array + 2D Array (for simplicity instead of linked list)
 // TIME COMPLEXITY (all public methods):  O(N),  N = number if items in hash table (due to hash collisions)
 // SPACE COMPLEXITY: O(N)
 
