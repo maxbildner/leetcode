@@ -57,7 +57,7 @@
 
 
 
-// TIME: 
+// TIME: 8/24/21	96min
 // *****************************************************************************
 // SOLUTION 2- MY SOLUTION (Faster than 44% of submissions, memory usage less than 80% of submissions)
 // Time Complexity get() and put() methods:    O(1)
@@ -67,8 +67,17 @@
 //       separate/abstract linked list node manipulations
 
 // General Strategy:
+// Hash Table =
+// {
+// 		0: Doubly Linked List Node { key:int, value:int, prev:Node, next:Node },
+//		1: {},
+// }
+//
+// Doubly Linked List = 
+// {} <-> {} <-> {}
+// 
 // - main DS will have underlying DOUBLY LINKED LIST to track order
-// - main DS will have 4 properties (head, tail, capacity, size, hash table):
+// - main DS will have 5 properties (head, tail, capacity, count, cache/hash table):
 //    - head and tail = (node objects)
 //    - capacity = (number) max capacity of LRUCache
 //    - count = (number) current size of LRUCache (num nodes)
@@ -92,7 +101,7 @@ var LRUCache = function (capacity) {
 // HELPER 1
 // (node) => undefined
 LRUCache.prototype._addToHead = function (node) {
-												
+
 };
 
 
@@ -115,7 +124,7 @@ LRUCache.prototype._removeNode = function (node) {
 // HELPER 4
 // (node) => undefined
 LRUCache.prototype._promoteToHead = function (node) {  
-	
+
 };
 
 
@@ -148,30 +157,36 @@ LRUCache.prototype.put = function (key, value) {
  * obj.put(key,value)
  */
 
-// var fancyLRUCache = new LRUCache(2);
-// // 1)
-// console.log('PUT: 1');
-// fancyLRUCache.put(1, 1);
-// console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '1'
-// console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
-// //=>                                                                                              Head: 1  Tail: 1   Length: 1
-// console.log(' ');
+var fancyLRUCache = new LRUCache(2);
+// 1)
+console.log('PUT: 1');
+fancyLRUCache.put(1, 1);
+console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '1'
+console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+//=>                                                                                              Head: 1  Tail: 1   Length: 1
+console.log(stringifyListOrder(fancyLRUCache.head) === '1' && fancyLRUCache.head.value === 1 && fancyLRUCache.tail.value === 1 && fancyLRUCache.count === 1 ? 'PASS' : 'FAIL');
+console.log('--------------');
+console.log(' ');
 
-// // 2) 
-// console.log('PUT: 2');
-// fancyLRUCache.put(2, 2);
-// console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '2 -> 1'
-// console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
-// //=>                                                                                              Head: 2  Tail: 1   Length: 2
-// console.log(' ');
+// 2) 
+console.log('PUT: 2');
+fancyLRUCache.put(2, 2);
+console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '2 -> 1'
+console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
+console.log(stringifyListOrder(fancyLRUCache.head) === '2 -> 1' && fancyLRUCache.head.value === 2 && fancyLRUCache.tail.value === 1 && fancyLRUCache.count === 2 ? 'PASS' : 'FAIL');
+//=>                                                                                              Head: 2  Tail: 1   Length: 2
+console.log('--------------');
+console.log(' ');
 
 // // 3)
 // console.log('GET: 1');
 // console.log(fancyLRUCache.get(1));                                                          //=> 1
 // console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '1 -> 2'
 // console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
-// console.log(' ');
 // //=>                                                                                              Head: 1  Tail: 2   Length: 2
+// console.log(stringifyListOrder(fancyLRUCache.head) === '1 -> 2' && fancyLRUCache.head.value === 1 && fancyLRUCache.tail.value === 2 && fancyLRUCache.count === 2 ? 'PASS' : 'FAIL');
+// console.log('--------------');
+// console.log(' ');
 
 // // 4)
 // console.log('PUT: 3');
@@ -179,6 +194,8 @@ LRUCache.prototype.put = function (key, value) {
 // console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> '3 -> 1'
 // console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count); 
 // //=>                                                                                              Head: 3  Tail: 1   Length: 2
+// console.log(stringifyListOrder(fancyLRUCache.head) === '3 -> 1' && fancyLRUCache.head.value === 3 && fancyLRUCache.tail.value === 1 && fancyLRUCache.count === 2 ? 'PASS' : 'FAIL');
+// console.log('--------------');
 // console.log(' ');
 
 // // 5)
@@ -332,14 +349,14 @@ LRUCache.prototype.put = function (key, value) {
 // *****************************************************************************
 // EXAMPLE SEQUENCE 4
 
-var fancyLRUCache = new LRUCache(3);  
-// 1)
-console.log('PUT: 2, 1');
-fancyLRUCache.put(2, 1);
-console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> 'k:2, v:1'     '1'
-console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count);
-//=>                                                                                              Head: 1   Tail: 1   Length: 1
-console.log(' ');
+// var fancyLRUCache = new LRUCache(3);  
+// // 1)
+// console.log('PUT: 2, 1');
+// fancyLRUCache.put(2, 1);
+// console.log(stringifyListOrder(fancyLRUCache.head));                                        //=> 'k:2, v:1'     '1'
+// console.log('Head: ', fancyLRUCache.head.value, '   ', 'Tail: ', fancyLRUCache.tail.value, '   ', 'Length: ', fancyLRUCache.count);
+// //=>                                                                                              Head: 1   Tail: 1   Length: 1
+// console.log(' ');
 
 // // 2) 
 // console.log('GET: 2');
