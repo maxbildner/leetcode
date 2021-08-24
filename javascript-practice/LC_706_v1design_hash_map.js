@@ -25,11 +25,14 @@
 // hashMap.get(2);            // returns -1 (not found) 
 
 
-// TIME: 8/19/21	31min
+// TIME: 8/24/21		31min
 // *****************************************************************************
-// SOLUTION V1- Underlying array + 2D Array (for simplicity instead of linked list)
-// TIME COMPLEXITY (all public methods):  O(N),  N = number if items in hash table (due to hash collisions)
-// SPACE COMPLEXITY: O(N)
+// SOLUTION V1- Underlying array + 2D Array (for simplicity instead of Singly Linked List)
+// TIME COMPLEXITY (all public methods):  O(N/K)
+// 		N = number of items in hash table (due to hash collisions)
+// 		K = number of predefined buckets (2069)
+// SPACE COMPLEXITY: O(K + M)
+//		M = number of unique keys that have been inserted into the hashmap
 
 // [ 0: Bucket [ [key, value], ... ], 
 // 	 1: Bucket [ [key, value], ... ],
@@ -128,29 +131,29 @@ MyHashMap.prototype.remove = function(key) {
 
 let obj = new MyHashMap();
 obj.put(0, 1);	
-console.log(obj._hashTable.slice(0,5));
-console.log(obj._hashTable[0]);
+console.log(obj._hashTable.slice(0,3));
+console.log(obj._hashTable[0]);							//=> Bucket { bucket: [ [ 0, 1 ] ] }
 console.log(' ');
 console.log(' ');
-// obj.put(1, 2);	
-// console.log(obj._hashTable.slice(0,5));
-// console.log(obj._hashTable[1]);
+obj.put(1, 2);	
+console.log(obj._hashTable.slice(0,3));
+console.log(obj._hashTable[1]);							//=> Bucket { bucket: [ [ 1, 2 ] ] }
+console.log(' ');
+console.log(' ');
+obj.put(2069, 7);														// should have hashing collision with key 0!
+console.log(obj._hashTable.slice(0,3));
+console.log(obj._hashTable[0]);							//=> Bucket { bucket: [ [ 0, 1 ], [ 2069, 7 ] ] }
+console.log(' ');
+console.log(' ');
+obj.put(0, 42);															// overwriting value (key already exists)
+console.log(obj._hashTable.slice(0,3));	
+console.log(obj._hashTable[0]);							//=> Bucket { bucket: [ [ 0, 42 ], [ 2069, 7 ] ] }
+console.log(' ');
+console.log(' ');
+// console.log(obj.get(0));										//=> 42											
+// console.log(obj.get(3));										//=> -1
 // console.log(' ');
 // console.log(' ');
-// obj.put(2069, 7);														// should have hashing collision with key 0!
-// console.log(obj._hashTable.slice(0,5));
-// console.log(obj._hashTable[0]);
-// console.log(' ');
-// console.log(' ');
-// obj.put(0, 42);															// overwriting value (key already exists)
-// console.log(obj._hashTable.slice(0,5));
-// console.log(obj._hashTable[0]);
-// console.log(' ');
-// console.log(' ');
-// console.log(obj.get(0));												//=> 1											
-// console.log(obj.get(3));												//=> -1
-// console.log(' ');
-// console.log(' ');
-obj.remove(0);	
-console.log(obj._hashTable.slice(0,5));
-console.log(obj._hashTable[0]);
+// obj.remove(0);	
+// console.log(obj._hashTable.slice(0,3));
+// console.log(obj._hashTable[0]);							//=> Bucket { bucket: [ [ 2069, 7 ] ] }

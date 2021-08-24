@@ -27,9 +27,12 @@
 
 // TIME: 
 // *****************************************************************************
-// SOLUTION V2- Underlying array + 2D Array (for simplicity instead of linked list)
-// TIME COMPLEXITY (all public methods):  O(N),  N = number if items in hash table (due to hash collisions)
-// SPACE COMPLEXITY: O(N)
+// SOLUTION V2- Underlying array + Singly Linked list
+// TIME COMPLEXITY (all public methods):  O(N/K)
+// 		N = number of items in hash table (due to hash collisions)
+// 		K = number of predefined buckets (2069)
+// SPACE COMPLEXITY: O(K + M)
+//		M = number of unique keys that have been inserted into the hashmap
 
 // [ 0: Bucket [ [key, value], ... ], 
 // 	 1: Bucket [ [key, value], ... ],
