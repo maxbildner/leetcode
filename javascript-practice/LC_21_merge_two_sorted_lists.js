@@ -20,7 +20,7 @@ class ListNode {
 }
 
 
-// TIME: 15min  8/16/21
+// TIME: 8/27/21     17min
 // *****************************************************************************
 // SOLUTION V1- Iterative, just like merge helper in merge sort
 // MUTATES BOTH INPUTS
@@ -29,7 +29,7 @@ class ListNode {
 // (ListNode 1, ListNode 2)       =>  ListNode
 // (1 -> 2 -> 4,   1 -> 3 -> 4)   =>  1 -> 1 -> 2 -> 3 -> 4 -> 4
 function mergeTwoLists(l1, l2) {
-
+  
 }
 
 

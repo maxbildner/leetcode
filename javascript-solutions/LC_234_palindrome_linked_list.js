@@ -86,7 +86,7 @@ function reverseList(head) {
 };
 
 
-
+// TIME: 8/27/21       50min
 // *****************************************************************************
 // VERSION 2- ITERATIVE, get length of list, get midIdx, grab head of 2nd half of linked list
 // 						grab tail of 1st half of linked list, reverse 2nd half of linked list (use helper function in place)
@@ -152,8 +152,8 @@ function reverseList(head) {
 let n1 = new ListNode(1);
 let n2 = new ListNode(2);
 n1.next = n2;
-console.log(isPalindrome(n1));    //=> false
-// console.log(getMidNode(n1));   //=> 1
+console.log(isPalindrome(n1));                  //=> false
+// console.log(stringify(getMidNode(n1)));      //=> '1 -> 2'
 
 // Example 2:
 // Input: 1 -> 2 -> 2 -> 1
@@ -164,8 +164,8 @@ let n4 = new ListNode(1);
 n1.next = n2;
 n2.next = n3;
 n3.next = n4;
-console.log(isPalindrome(n1));      //=> true
-// console.log(getMidNode(n1));     //=> 2   (1st one so 2.next -> 2)
+console.log(isPalindrome(n1));                  //=> true
+// console.log(stringify(getMidNode(n1)));      //=> '2 -> 2 -> 1'
 
 // Example 3:
 // Input: 1 -> 2 -> 3 -> 2 -> 1
@@ -178,8 +178,8 @@ n1.next = n2;
 n2.next = n3;
 n3.next = n4;
 n4.next = n5;
-console.log(isPalindrome(n1));      //=> true
-// console.log(getMidNode(n1));     //=> 3
+console.log(isPalindrome(n1));                  //=> true
+// console.log(stringify(getMidNode(n1)));      //=> '3 -> 2 -> 1'
 
 // Example 4:
 // Input: 1 -> 0 -> 1
@@ -188,19 +188,19 @@ n2 = new ListNode(0);
 n3 = new ListNode(1);
 n1.next = n2;
 n2.next = n3;
-console.log(isPalindrome(n1));      //=> true
-// console.log(getMidNode(n1));     //=> 0
+console.log(isPalindrome(n1));                  //=> true
+// console.log(stringify(getMidNode(n1)));      //=> '0 -> 1'
 
 // Example 5:
 // Input: 1
 n1 = new ListNode(1);
-console.log(isPalindrome(n1));      //=> true
-// console.log(getMidNode(n1));     //=> 1
+console.log(isPalindrome(n1));                  //=> true
+// console.log(getMidNode(n1));                 //=> null ?
 
 
 // Example 6:
-// Input: 1
-console.log(isPalindrome(null));    //=> false
+// Input: null
+console.log(isPalindrome(null));                //=> false
 
 
 

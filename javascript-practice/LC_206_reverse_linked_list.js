@@ -12,13 +12,13 @@ function ListNode(val) {
 }
 
 
-// TIME: 8/16/21		18min
+// TIME: 8/25/21			8min
 // SOLUTION V1- OPTIMAL LC SOLUTION, iterative, mutates list/in place, less temp variables
 // TIME COMPLEXITY: O(n),   n = list length
 // SPACE CPMLEXITY: O(1)
 // a -> b -> c -> d             d -> c -> b -> a
 // (a) => (d)
-// TIME: 20m 8/6/21
+
 var reverseList = function (head) {
 
 };

@@ -25,19 +25,19 @@ function ListNode(val, next) {
 }
 
 
-// TIME: 8/17/21   24min
+// TIME: 8/27/21       50min
 // *****************************************************************************
-// VERSION 1- ITERATIVE
+// VERSION 2- ITERATIVE (2 helper functions)
 // TIME COMPLEXITY:  O(N), N = length of list
 // SPACE COMPLEXITY: O(1)
 
 // 1 -> 0 -> 1     => true
 var isPalindrome = function (head) {
-
+  
 };
 
 
-// HELPER FUNCTION- gets tail of 1st half of list (ie midNode. if even, mid left)
+// HELPER FUNCTION- gets tail of 1st half of list (ie midNode. if even, mid left). will get list length at least 2
 function getMidNode(head) {
 
 }
@@ -45,7 +45,7 @@ function getMidNode(head) {
 
 // HELPER FUNCTION
 function reverseList(head) {
-
+  
 };
 
 
@@ -54,8 +54,8 @@ function reverseList(head) {
 let n1 = new ListNode(1);
 let n2 = new ListNode(2);
 n1.next = n2;
-console.log(isPalindrome(n1));    //=> false
-// console.log(getMidNode(n1));   //=> 1
+console.log(isPalindrome(n1));                  //=> false
+// console.log(stringify(getMidNode(n1)));      //=> '1 -> 2'
 
 // Example 2:
 // Input: 1 -> 2 -> 2 -> 1
@@ -66,8 +66,8 @@ let n4 = new ListNode(1);
 n1.next = n2;
 n2.next = n3;
 n3.next = n4;
-console.log(isPalindrome(n1));      //=> true
-// console.log(getMidNode(n1));     //=> 2   (1st one so 2.next -> 2)
+console.log(isPalindrome(n1));                  //=> true
+// console.log(stringify(getMidNode(n1)));      //=> '2 -> 2 -> 1'
 
 // Example 3:
 // Input: 1 -> 2 -> 3 -> 2 -> 1
@@ -80,8 +80,8 @@ n1.next = n2;
 n2.next = n3;
 n3.next = n4;
 n4.next = n5;
-console.log(isPalindrome(n1));      //=> true
-// console.log(getMidNode(n1));     //=> 3
+console.log(isPalindrome(n1));                  //=> true
+// console.log(stringify(getMidNode(n1)));      //=> '3 -> 2 -> 1'
 
 // Example 4:
 // Input: 1 -> 0 -> 1
@@ -90,19 +90,19 @@ n2 = new ListNode(0);
 n3 = new ListNode(1);
 n1.next = n2;
 n2.next = n3;
-console.log(isPalindrome(n1));      //=> true
-// console.log(getMidNode(n1));     //=> 0
+console.log(isPalindrome(n1));                  //=> true
+// console.log(stringify(getMidNode(n1)));      //=> '0 -> 1'
 
 // Example 5:
 // Input: 1
 n1 = new ListNode(1);
-console.log(isPalindrome(n1));      //=> true
-// console.log(getMidNode(n1));     //=> 1
+console.log(isPalindrome(n1));                  //=> true
+// console.log(getMidNode(n1));                 //=> null ?
 
 
 // Example 6:
-// Input: 1
-console.log(isPalindrome(null));    //=> false
+// Input: null
+console.log(isPalindrome(null));                //=> false
 
 
 

@@ -56,7 +56,8 @@ function hasCycle(head) {
 
 	while (fast) {																						// loop while fast pointer is NOT null (or while fast pointer exists)
 		
-		if (fast.next == null || fast == null) return false;		// if fast.next or fast is null, we do NOT have a cycle
+		// if (fast.next == null || fast == null) return false;	// if fast.next or fast is null, we do NOT have a cycle
+		if (fast.next == null) return false;										// don't need above. this also works
 
 		slow = slow.next;																				// update slow and fast pointers
 		fast = fast.next.next;
