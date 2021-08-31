@@ -86,7 +86,7 @@ function reverseList(head) {
 };
 
 
-// TIME: 8/27/21       50min
+// TIME: 8/30/21       24min
 // *****************************************************************************
 // VERSION 2- ITERATIVE, get length of list, get midIdx, grab head of 2nd half of linked list
 // 						grab tail of 1st half of linked list, reverse 2nd half of linked list (use helper function in place)
