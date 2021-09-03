@@ -34,12 +34,12 @@
 // SPACE COMPLEXITY: O(K + M)
 //		M = number of unique keys that have been inserted into the hashmap
 
-// [ 0: LinkedList {} -> {} -> {}, 
-// 	 1: LinkedList { key:int, value:int, next:Node },
-// 	 2: LinkedList null,  
-// 	 3: LinkedList null,
+// [ 0: LinkedList .head = Node {} -> {} -> {}, 
+// 	 1: LinkedList .head = Node { key:int, value:int, next:Node },
+// 	 2: LinkedList .head = null,  
+// 	 3: LinkedList .head = null,
 // 	 ...
-// 	 2069: LinkedList {} 
+// 	 2069: LinkedList .head = null 
 // ]
 // HASH COLLISION = when 2 different keys (ex. 0, and 2069) are mapped to the same hash address
 

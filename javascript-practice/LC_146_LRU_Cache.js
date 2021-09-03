@@ -57,7 +57,7 @@
 
 
 
-// TIME: 8/25/21		62min
+// TIME: 9/2/21		70m
 // *****************************************************************************
 // SOLUTION 2- MY SOLUTION (Faster than 44% of submissions, memory usage less than 80% of submissions)
 // Time Complexity get() and put() methods:    O(1)
@@ -83,9 +83,9 @@
 //    - count = (number) current size of LRUCache (num nodes)
 //    - cache = (hash table). use table for fast lookup. values = nodes
 // - 4 private helper methods:
-//    - add node to head                 ()     => undefined
-//    - remove tail node                 ()     => node (removed)
-//    - remove non head or non tail node (node) => undefined
+//    - add node to head                 ()     => undefined				MODIFIES COUNT
+//    - remove tail node                 ()     => node (removed)		MODIFIES COUNT
+//    - remove non head or non tail node (node) => undefined				MODIFIES COUNT
 //    - promote node to head             (node) => undefined
 // - main methods:
 //    - get(key)        => value      O(1)  TIME
@@ -94,14 +94,14 @@
 
 // (number) => undefined
 var LRUCache = function (capacity) {
-	
+
 };
   
   
 // HELPER 1
 // (node) => undefined		(assumes list never at capacity, modifys count)
 LRUCache.prototype._addToHead = function (node) {
-	
+
 };
 
 
@@ -137,8 +137,8 @@ LRUCache.prototype.get = function (key) {
 
 
 // (number, number) => undefined
-// if key not in list, creates node and adds node to head
-// if key in list, reassigns value in node, and moves node to head
+// if key not in cache, creates node and adds node to head
+// if key in cache, reassigns value in node, and moves node to head
 LRUCache.prototype.put = function (key, value) {
 	
 };

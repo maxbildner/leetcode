@@ -25,7 +25,7 @@
 // hashMap.get(2);            // returns -1 (not found) 
 
 
-// TIME: 8/24/21		31min
+// TIME: 8/31/21		23min
 // *****************************************************************************
 // SOLUTION V1- Underlying array + 2D Array (for simplicity instead of Singly Linked List)
 // TIME COMPLEXITY (all public methods):  O(N/K)
@@ -46,25 +46,25 @@
 // HELPER CLASS
 class Bucket {
 	constructor() {
-
+		
 	}
 
 
 	// returns undefined
 	update(key, value) {
-
+		
 	}
 
 
 	// returns -1 if not found
 	get(key) {
-
+		
 	}
 
 
 	// returns undefined (regardless of whether key is found or not)
 	remove(key) {
-
+		
 	}
 }
 
@@ -74,7 +74,7 @@ class Bucket {
  * Initialize your data structure here.
  */
 var MyHashMap = function() {
-
+	
 };
 
 
@@ -86,7 +86,7 @@ var MyHashMap = function() {
 // 2069  => 0		// hash collision!!
 // 2070  => 1		// hash collision!!
 MyHashMap.prototype._hashify = function(key) {		// HASHING NUMBERS ONLY
-
+	
 }
 	
 
@@ -97,7 +97,7 @@ MyHashMap.prototype._hashify = function(key) {		// HASHING NUMBERS ONLY
  * @return {void}
  */
 MyHashMap.prototype.put = function(key, value) {
-
+	
 };
 
 
@@ -107,7 +107,7 @@ MyHashMap.prototype.put = function(key, value) {
  * @return {number}
  */
 MyHashMap.prototype.get = function(key) {
-
+	
 };
 
 
@@ -117,7 +117,7 @@ MyHashMap.prototype.get = function(key) {
  * @return {void}
  */
 MyHashMap.prototype.remove = function(key) {
-
+	
 };
 
 
@@ -150,10 +150,10 @@ console.log(obj._hashTable.slice(0,3));
 console.log(obj._hashTable[0]);							//=> Bucket { bucket: [ [ 0, 42 ], [ 2069, 7 ] ] }
 console.log(' ');
 console.log(' ');
-// console.log(obj.get(0));										//=> 42											
-// console.log(obj.get(3));										//=> -1
-// console.log(' ');
-// console.log(' ');
-// obj.remove(0);	
-// console.log(obj._hashTable.slice(0,3));
-// console.log(obj._hashTable[0]);							//=> Bucket { bucket: [ [ 2069, 7 ] ] }
+console.log(obj.get(0));										//=> 42											
+console.log(obj.get(3));										//=> -1
+console.log(' ');
+console.log(' ');
+obj.remove(0);	
+console.log(obj._hashTable.slice(0,3));
+console.log(obj._hashTable[0]);							//=> Bucket { bucket: [ [ 2069, 7 ] ] }

@@ -27,9 +27,11 @@ class ListNode {
 }
   
   
-// TIME: 8/31/21			31min
+// TIME: 9/3/21			32min
 // *****************************************************************************
-// SOLUTION V1- BASIC MATH (like how you would solve w/ pen/paper with "carry")
+// SOLUTION V3- BASIC MATH (like how you would solve w/ pen/paper with "carry")
+//		Leetcode Java Solution- less complicated while loop, but if statement at end needed for edge case if input is single digit ex. 5, 5
+//		More intuitive carrying logic
 // TIME COMPLEXITY:   O( Max(m, n) ),   m = List 1 length,   n = list 2 length 
 // SPACE COMPLEXITY:  O( Max(m, n) )
 // (ListNode 1, ListNode 2)       =>  ListNode
@@ -53,7 +55,9 @@ l2Node1.next = l2Node2;
 l2Node2.next = l2Node3;
 let sum = addTwoNumbers(l1Node1, l2Node1);
 console.log(stringify(sum));                  //=> '7 -> 0 -> 8'
-
+console.log(stringify(sum) === '7 -> 0 -> 8' ? 'PASS' : 'FAIL');
+console.log('--------------');
+console.log(' ');
 
 // EXAMPLE 2:   
 // (5) + (5)                                  //=> 0 -> 1
@@ -61,6 +65,9 @@ l1Node1 = new ListNode(5);
 l2Node1 = new ListNode(5);
 sum = addTwoNumbers(l1Node1, l2Node1);
 console.log(stringify(sum));                  //=> '0 -> 1'
+console.log(stringify(sum) === '0 -> 1' ? 'PASS' : 'FAIL');
+console.log('--------------');
+console.log(' ');
 
 
 // EXAMPLE 3:   
@@ -71,6 +78,24 @@ l2Node1 = new ListNode(9);
 l1Node1.next = l1Node2;
 sum = addTwoNumbers(l1Node1, l2Node1);
 console.log(stringify(sum));                  //=> '2 -> 5'
+console.log(stringify(sum) === '2 -> 5' ? 'PASS' : 'FAIL');
+console.log('--------------');
+console.log(' ');
+
+
+// EXAMPLE 4:   
+// (3 -> 2) + (9 -> 9)                        //=> 1 -> 2 -> 2
+l1Node1 = new ListNode(3);
+l1Node2 = new ListNode(2);
+l2Node1 = new ListNode(9);
+l2Node2 = new ListNode(9);
+l1Node1.next = l1Node2;
+l2Node1.next = l2Node2;
+sum = addTwoNumbers(l1Node1, l2Node1);
+console.log(stringify(sum));                  //=> '2 -> 2 -> 1'
+console.log(stringify(sum) === '2 -> 2 -> 1' ? 'PASS' : 'FAIL');
+console.log('--------------');
+console.log(' ');
 
 
 // Helper Function for testing:

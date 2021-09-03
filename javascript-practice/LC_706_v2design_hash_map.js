@@ -25,7 +25,7 @@
 // hashMap.get(2);            // returns -1 (not found) 
 
 
-// TIME: 8/24/21			37min
+// TIME: 9/1/21	47min
 // *****************************************************************************
 // SOLUTION V2- Underlying array + Singly Linked list
 // TIME COMPLEXITY (all public methods):  O(N/K)
@@ -34,12 +34,12 @@
 // SPACE COMPLEXITY: O(K + M)
 //		M = number of unique keys that have been inserted into the hashmap
 
-// [ 0: LinkedList {} -> {} -> {}, 
-// 	 1: LinkedList { key:int, value:int, next:Node },
-// 	 2: LinkedList null,  
-// 	 3: LinkedList null,
+// [ 0: LinkedList .head = Node {} -> {} -> {}, 
+// 	 1: LinkedList .head = Node { key:int, value:int, next:Node },
+// 	 2: LinkedList .head = null,  
+// 	 3: LinkedList .head = null,
 // 	 ...
-// 	 2069: LinkedList {} 
+// 	 2069: LinkedList .head = null 
 // ]
 // HASH COLLISION = when 2 different keys (ex. 0, and 2069) are mapped to the same hash address
 
@@ -52,25 +52,25 @@ class ListNode {
 
 
 // HELPER CLASS
-class LinkedList {																		// Bucket is a LinkedList object, with ListNode objects
+class LinkedList {																		
 	constructor() {
 		
 	}
 
 
 	// returns null
-	update(key, value) {
+	update(key, value) {		
 		
 	}
 
 
-	// returns -1 if not found
+	// returns -1 if not found, returns node value if key found
 	get(key) {
 		
 	}
 
 
-	// returns null if not found (regardless of whether key is found or not)
+	// returns null regardless of whether key is found or not
 	remove(key) {
 		
 	}
@@ -82,7 +82,7 @@ class LinkedList {																		// Bucket is a LinkedList object, with ListN
  * Initialize your data structure here.
  */
 var MyHashMap = function() {
-
+	
 };
 
 
@@ -102,7 +102,7 @@ MyHashMap.prototype._hashify = function(key) {		// HASHING NUMBERS ONLY
  * value will always be non-negative. 
  * @param {number} key 
  * @param {number} value
- * @return {void}																	// returns null no matter what?
+ * @return {void}													// returns null no matter what?
  */
 MyHashMap.prototype.put = function(key, value) {
 	
@@ -115,17 +115,17 @@ MyHashMap.prototype.put = function(key, value) {
  * @return {number}
  */
 MyHashMap.prototype.get = function(key) {
-
+	
 };
 
 
 /**
  * Removes the mapping of the specified value key if this map contains a mapping for the key 
  * @param {number} key
- * @return {void}															// returns null no matter what
+ * @return {void}													// returns null no matter what
  */
 MyHashMap.prototype.remove = function(key) {
-
+	
 };
 
 
