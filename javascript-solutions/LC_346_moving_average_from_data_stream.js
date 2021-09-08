@@ -57,7 +57,7 @@
 
 
 // ****************************************************************
-// SOLUTION V2- DOUBLE ENDED QUEUE (Dequeue) + WindowSum
+// SOLUTION V2- Fake Queue + WindowSum
 // https://leetcode.com/problems/moving-average-from-data-stream/discuss/187736/JavaScript-beats-100
 // - We do not need to keep all values from the data stream, but rather the 
 //   last n values which falls into the moving window.
@@ -68,30 +68,23 @@
 //   of queue
 // See LC solution 2 diagram
 //
-// TIME COMPLEXITY (#next): 	O(1)  if we use linked list in JS.  O(N) if we use array to implement queue because .shift() is O(N)
+// TIME COMPLEXITY (#next): 	O(N)  Array to implement queue because .shift() is O(N)
 // SPACE COMPLEXITY: 	        O(N)  N = length of sliding window/queue 
-/**
- * Initialize your data structure here.
- * @param {number} size
- */
-var MovingAverage = function (size) {                                           // 1) main Data Structure has 3 properties: size, queue, windowSum
-  this.size = size;
-  this.queue = [];
-  this.sum = 0;
-};
+
+// var MovingAverage = function (size) {                                           // 1) main Data Structure has 3 properties: size, queue, windowSum
+//   this.size = size;
+//   this.queue = [];
+//   this.sum = 0;
+// };
 
 
-/** 
- * @param {number} val
- * @return {number}
- */
-MovingAverage.prototype.next = function (val) {
-  let head = 0;
-  if (this.queue.length === this.size) head = this.queue.shift();               // 1) if length of queue exceeds size limit, delete head and store to var
-  this.queue.push(val);                                                         // 2) push val to queue
-  this.sum += val - head;                                                       // 3) calculate windowSum. sum at time t = previous sum + val - head.  sum(t) = sum(t - 1) + val - head
-  return this.sum / this.queue.length;
-};
+// MovingAverage.prototype.next = function (val) {
+//   let head = 0;
+//   if (this.queue.length === this.size) head = this.queue.shift();               // 1) if length of queue exceeds size limit, delete head and store to var
+//   this.queue.push(val);                                                         // 2) push val to queue
+//   this.sum += val - head;                                                       // 3) calculate windowSum. sum at time t = previous sum + val - head.  sum(t) = sum(t - 1) + val - head
+//   return this.sum / this.queue.length;
+// };
 
 
 /** 
@@ -109,26 +102,83 @@ MovingAverage.prototype.next = function (val) {
 
 
 
-// TIME: 22m
+
+// TIME: 9/8/21     22min    
 // ****************************************************************
-// PRACTICE
-// TIME COMPLEXITY (#next): 	O(1)  if we use linked list in JS.  O(N) if we use array to implement queue because .shift() is O(N)
+// SOLUTION V3-  QUEUE as DOUBLY LINKED LIST- O(1) TIME
+
+// TIME COMPLEXITY (#next): 	O(1)  doubly linked list in JS
 // SPACE COMPLEXITY: 	        O(N)  N = length of sliding window/queue 
-/**
- * Initialize your data structure here.
- * @param {number} size
- */
+
+class Node {
+  constructor(val, next, prev) {
+    this.val = val === undefined ? null : val;
+    this.next = next === undefined ? null : next;
+    this.prev = prev === undefined ? null : prev;
+  }
+}
+
+
+// QUEUE as a DOUBLY LINKED LIST
+var Queue = function () {   
+  this.length = 0;
+  this.head = null;
+  this.tail = null;
+}
+
+// add to tail
+Queue.prototype.enqueue = function (val) {
+  let node = new Node(val);
+
+  if (!this.head) {
+    this.head = node;
+    
+  } else {
+    this.tail.next = node;
+    node.prev = this.tail;
+  }
+
+  this.tail = node;
+  this.length++;
+}
+
+
+// remove from head
+Queue.prototype.dequeue = function () {
+  let oldHead = this.head;
+  this.head = oldHead.next;
+  this.length--;
+  return oldHead;
+}
+
+
+
 var MovingAverage = function (size) {                                           
- 
+  this.size = size;
+  this.sum = 0;
+
+  // - .dequeue()     => removes head node
+  // - .enqueue(val)  => enqueues or adds val to tail of queue
+  // - .length    
+  // - .head 
+  // - .tail
+  this.queue = new Queue();
 };
 
 
-/** 
- * @param {number} val
- * @return {number}
- */
 MovingAverage.prototype.next = function (val) {
- 
+  let head = 0;
+
+  // if queue is at size capacity, then we need to remove first val from queue
+  if (this.queue.length === this.size) {
+    head = this.queue.dequeue().val;
+  } 
+
+  this.queue.enqueue(val);
+
+  this.sum = this.sum + val - head;
+
+  return this.sum / this.queue.length;
 };
 
 
