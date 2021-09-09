@@ -9,9 +9,9 @@
 // Output:  [0, 1]  Because nums[0] + nums[1] = 2 + 7 = 9
 
 
-// TIME: 8/25/21		3min
+// TIME: 9/9/21   4min
 // ***************************************************************************
-// SOLUTION1- Hash Table (OUTPUT ONLY HAS 1 PAIR)
+// SOLUTION1- Hash Table (OUTPUT ONLY HAS 1 PAIR) LEETCODE QUESTION
 // Time Complexity: O(n), where n = input array length
 // Space Complexity: O(n) 
 // Solution Description: 

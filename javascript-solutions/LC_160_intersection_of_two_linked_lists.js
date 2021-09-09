@@ -62,13 +62,48 @@ function linkedListIntersection(head1, head2) {
 function linkedListIntersection(head1, head2) {
   if (!head1 || !head2) return null;                                            // 1) return null if either list is empty
 
-  let pNode1 = head1;                                                           // 2) initialize 2 pointers to both heads
-  let pNode2 = head2;
+  let p1 = head1;                                                               // 2) initialize 2 pointers to both heads
+  let p2 = head2;
 
-  while (pNode1 != pNode2) {                                                    // 3) keep looping as long as node pointers are different. loop through both lists one node at a time
-    pNode1 = pNode1 == null ? head2 : pNode1.next;                              // 4) update each node to the next node, unless node reaches end of its list- then update it to the head of opposite list
-    pNode2 = pNode2 == null ? head1 : pNode2.next;
+  while (p1 != p2) {                                                            // 3) keep looping as long as node pointers are different. loop through both lists one node at a time
+    p1 = p1 == null ? head2 : p1.next;                                          // 4) update each node to the next node, unless node reaches end of its list- then update it to the head of opposite list
+    p2 = p2 == null ? head1 : p2.next;
   }
 
   return pNode1;                                                                // 5) return either pointer (they will be the same or null)
 }
+
+
+
+
+// EXAMPLE 1:
+//      A → B
+//           ↘
+//             C → D
+//           ↗
+//          E
+// F(A, E) => Node C
+let l1node1 = new ListNode('A');
+let l1node2 = new ListNode('B');
+let l1node3 = new ListNode('C');
+let l1node4 = new ListNode('D');
+l1node1.next = l1node2;
+l1node2.next = l1node3;
+l1node3.next = l1node4;
+let l2node1 = new ListNode('E');
+l2node1.next = l1node3;
+console.log(linkedListIntersectionV2(l1node1, l2node1));      //=> { val:'C', next:NodeD }
+
+
+// EXAMPLE 2:
+//    A → B 
+//
+//    X → Y 
+// F(A, E) => null
+l1node1 = new ListNode('A');
+l1node2 = new ListNode('B');
+l1node1.next = l1node2;
+l2node1 = new ListNode('X');
+l2node2 = new ListNode('X');
+l2node1.next = l2node2;
+console.log(linkedListIntersectionV2(l1node1, l2node1));      //=> null
