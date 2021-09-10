@@ -25,7 +25,7 @@ function ListNode(val, next) {
 }
 
 
-// TIME: 8/30/21     24min
+// TIME: 9/10/21     22min
 // *****************************************************************************
 // VERSION 2- ITERATIVE (2 helper functions)
 // TIME COMPLEXITY:  O(N), N = length of list
@@ -45,7 +45,7 @@ function getMidNode(head) {
 
 // HELPER FUNCTION
 function reverseList(head) {
-  
+
 };
 
 
@@ -97,7 +97,7 @@ console.log(isPalindrome(n1));                  //=> true
 // Input: 1
 n1 = new ListNode(1);
 console.log(isPalindrome(n1));                  //=> true
-// console.log(getMidNode(n1));                 //=> null ?
+// console.log(getMidNode(n1));                 //=> 1
 
 
 // Example 6:
